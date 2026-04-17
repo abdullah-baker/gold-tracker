@@ -275,6 +275,45 @@ input,button,select{font-family:'DM Sans',sans-serif}
 </div>
 </div>
 
+<!-- ═══════════ CHARTS ═══════════ -->
+<div id="screen-charts" class="screen">
+<div class="p16">
+  <div style="padding-top:16px;margin-bottom:20px">
+    <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Analytics</div>
+    <div style="font-size:24px;font-weight:600">Charts</div>
+  </div>
+
+  <!-- Chart 1: Portfolio Growth -->
+  <div class="sec">Portfolio Growth</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Cost basis vs Current Value over time</div>
+    <canvas id="chart-growth" height="200"></canvas>
+  </div>
+
+  <!-- Chart 2: Cost vs Value per bar -->
+  <div class="sec">Cost vs Current Value</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Each bar — what you paid vs what it's worth now</div>
+    <canvas id="chart-bars" height="200"></canvas>
+  </div>
+
+  <!-- Chart 3: Weight Accumulation -->
+  <div class="sec">Weight Accumulation</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Total gold accumulated over time (grams)</div>
+    <canvas id="chart-weight" height="200"></canvas>
+  </div>
+
+  <!-- Chart 4: P&L per bar -->
+  <div class="sec">Profit & Loss per Bar</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:20px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Unrealized P&L for each purchase (USD)</div>
+    <canvas id="chart-pl" height="200"></canvas>
+  </div>
+
+</div>
+</div>
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn active" onclick="goTab('dashboard',this)">
@@ -284,6 +323,10 @@ input,button,select{font-family:'DM Sans',sans-serif}
   <button class="nav-btn" onclick="goTab('purchases',this)">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
     Purchases<span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="goTab('charts',this)">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    Charts<span class="nav-dot"></span>
   </button>
   <button class="nav-btn" onclick="goTab('settings',this)">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -338,6 +381,9 @@ input,button,select{font-family:'DM Sans',sans-serif}
 <!-- TOAST -->
 <div id="toast" style="position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111C2A;border:1px solid #223045;border-radius:12px;padding:10px 18px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;pointer-events:none;z-index:9999;white-space:nowrap"></div>
 
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
 <!-- ═══════════ FIREBASE SDK ═══════════ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -380,6 +426,218 @@ function toast(msg, color='#00D4AA') {
 
 function setText(id, val) { const el=document.getElementById(id); if(el) el.textContent=val; }
 
+// ── CHARTS ───────────────────────────────────────
+let chartInstances = {};
+
+const chartDefaults = {
+  font: { family: "'DM Sans', sans-serif" },
+  color: '#4A6580',
+};
+
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#4A6580';
+
+function destroyChart(id) {
+  if(chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+}
+
+function renderCharts() {
+  if(!purchases.length) return;
+  const spotG = spotOz ? spotOz / OZ : null;
+  const sorted = [...purchases].sort((a,b) => a.date.localeCompare(b.date));
+
+  // ── Chart 1: Portfolio Growth (Line) ──
+  destroyChart('growth');
+  const growthLabels = [];
+  const costData = [];
+  const valueData = [];
+  let cumCost = 0, cumWeight = 0;
+  sorted.forEach(p => {
+    cumCost   += p.priceIQD / p.rate;
+    cumWeight += p.weight;
+    growthLabels.push(p.date);
+    costData.push(+cumCost.toFixed(2));
+    valueData.push(spotG ? +(spotG * cumWeight).toFixed(2) : null);
+  });
+  // Add today's point
+  if(spotG && sorted.length) {
+    growthLabels.push('Today');
+    costData.push(costData[costData.length-1]);
+    valueData.push(+(spotG * cumWeight).toFixed(2));
+  }
+
+  const ctx1 = document.getElementById('chart-growth').getContext('2d');
+  chartInstances['growth'] = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: growthLabels,
+      datasets: [
+        {
+          label: 'Cost Basis (USD)',
+          data: costData,
+          borderColor: '#F0B429',
+          backgroundColor: 'rgba(240,180,41,.08)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: '#F0B429',
+          pointRadius: 4,
+        },
+        {
+          label: 'Current Value (USD)',
+          data: valueData,
+          borderColor: '#00D4AA',
+          backgroundColor: 'rgba(0,212,170,.08)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: '#00D4AA',
+          pointRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
+        tooltip: {
+          backgroundColor: '#0D1520',
+          borderColor: '#1A2535',
+          borderWidth: 1,
+          callbacks: { label: ctx => ' $' + ctx.parsed.y.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) }
+        }
+      },
+      scales: {
+        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, maxRotation: 0 } },
+        y: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, callback: v => '$'+v.toLocaleString() } }
+      }
+    }
+  });
+
+  // ── Chart 2: Cost vs Value per Bar (Grouped Bar) ──
+  destroyChart('bars');
+  const barLabels = sorted.map((p,i) => p.brand.replace('PAMP Suisse','PAMP').substring(0,10) + ' ' + p.weight+'g');
+  const barCost   = sorted.map(p => +(p.priceIQD / p.rate).toFixed(2));
+  const barValue  = sorted.map(p => spotG ? +(spotG * p.weight).toFixed(2) : 0);
+
+  const ctx2 = document.getElementById('chart-bars').getContext('2d');
+  chartInstances['bars'] = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: barLabels,
+      datasets: [
+        { label: 'Cost (USD)', data: barCost, backgroundColor: 'rgba(240,180,41,.7)', borderColor: '#F0B429', borderWidth: 1, borderRadius: 6 },
+        { label: 'Value (USD)', data: barValue, backgroundColor: 'rgba(0,212,170,.7)', borderColor: '#00D4AA', borderWidth: 1, borderRadius: 6 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
+        tooltip: {
+          backgroundColor: '#0D1520', borderColor: '#1A2535', borderWidth: 1,
+          callbacks: { label: ctx => ' $' + ctx.parsed.y.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) }
+        }
+      },
+      scales: {
+        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 } } },
+        y: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, callback: v => '$'+v.toLocaleString() } }
+      }
+    }
+  });
+
+  // ── Chart 3: Weight Accumulation (Area Line) ──
+  destroyChart('weight');
+  const weightLabels = [];
+  const weightData = [];
+  let cumW = 0;
+  sorted.forEach(p => {
+    weightLabels.push(p.date);
+    cumW += p.weight;
+    weightData.push(+cumW.toFixed(2));
+  });
+
+  const ctx3 = document.getElementById('chart-weight').getContext('2d');
+  chartInstances['weight'] = new Chart(ctx3, {
+    type: 'line',
+    data: {
+      labels: weightLabels,
+      datasets: [{
+        label: 'Total Weight (g)',
+        data: weightData,
+        borderColor: '#3B9EFF',
+        backgroundColor: 'rgba(59,158,255,.12)',
+        borderWidth: 2.5,
+        fill: true,
+        tension: 0.3,
+        stepped: true,
+        pointBackgroundColor: '#3B9EFF',
+        pointRadius: 6,
+        pointHoverRadius: 8,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
+        tooltip: {
+          backgroundColor: '#0D1520', borderColor: '#1A2535', borderWidth: 1,
+          callbacks: { label: ctx => ' ' + ctx.parsed.y.toFixed(2) + ' g' }
+        }
+      },
+      scales: {
+        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 } } },
+        y: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, callback: v => v + 'g' }, beginAtZero: true }
+      }
+    }
+  });
+
+  // ── Chart 4: P&L per Bar ──
+  destroyChart('pl');
+  const plLabels = sorted.map(p => p.brand.replace('PAMP Suisse','PAMP').substring(0,10) + ' ' + p.weight+'g');
+  const plData   = sorted.map(p => {
+    const cost = p.priceIQD / p.rate;
+    const val  = spotG ? spotG * p.weight : cost;
+    return +(val - cost).toFixed(2);
+  });
+  const plColors = plData.map(v => v >= 0 ? 'rgba(0,212,170,.75)' : 'rgba(255,77,77,.75)');
+  const plBorders = plData.map(v => v >= 0 ? '#00D4AA' : '#FF4D4D');
+
+  const ctx4 = document.getElementById('chart-pl').getContext('2d');
+  chartInstances['pl'] = new Chart(ctx4, {
+    type: 'bar',
+    data: {
+      labels: plLabels,
+      datasets: [{
+        label: 'P&L (USD)',
+        data: plData,
+        backgroundColor: plColors,
+        borderColor: plBorders,
+        borderWidth: 1,
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
+        tooltip: {
+          backgroundColor: '#0D1520', borderColor: '#1A2535', borderWidth: 1,
+          callbacks: { label: ctx => (ctx.parsed.y >= 0 ? ' +$' : ' -$') + Math.abs(ctx.parsed.y).toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) }
+        }
+      },
+      scales: {
+        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 } } },
+        y: {
+          grid: { color: '#1A2535' },
+          ticks: { color: '#4A6580', font: { size: 10 }, callback: v => (v>=0?'+$':'-$')+Math.abs(v).toLocaleString() },
+        }
+      }
+    }
+  });
+}
+
 // ── INIT ─────────────────────────────────────────
 async function init() {
   document.getElementById('rate-input').value = rate;
@@ -394,6 +652,7 @@ async function init() {
     document.getElementById('loading-screen').style.display = 'none';
     renderDashboard();
     renderPurchases();
+    setTimeout(renderCharts, 100);
   }, (err) => {
     console.error(err);
     document.getElementById('loading-screen').style.display = 'none';
@@ -408,18 +667,42 @@ async function init() {
 window.fetchPrice = async function() {
   const icon = document.getElementById('refresh-icon');
   icon.style.animation = 'spin 1s linear infinite';
+
+  // API 1: metals.live (no limit, no key)
   try {
-    const r = await fetch('https://api.gold-api.com/price/XAU',{headers:{'x-access-token':'goldapi-public'}});
+    const r = await fetch('https://metals.live/api/v1/spot', {signal: AbortSignal.timeout(5000)});
     if(!r.ok) throw 0;
     const d = await r.json();
-    setPrice(d.price, false);
+    const gold = Array.isArray(d) ? d.find(x=>x.metal==='gold') : null;
+    if(gold && gold.price > 100) { setPrice(gold.price, false); icon.style.animation=''; return; }
+  } catch {}
+
+  // API 2: frankfurter + XAU (free, no limit)
+  try {
+    const r = await fetch('https://api.frankfurter.app/latest?from=XAU&to=USD', {signal: AbortSignal.timeout(5000)});
+    if(!r.ok) throw 0;
+    const d = await r.json();
+    if(d.rates && d.rates.USD) { setPrice(d.rates.USD, false); icon.style.animation=''; return; }
+  } catch {}
+
+  // API 3: gold-api.com
+  try {
+    const r = await fetch('https://api.gold-api.com/price/XAU',{headers:{'x-access-token':'goldapi-public'}, signal: AbortSignal.timeout(5000)});
+    if(!r.ok) throw 0;
+    const d = await r.json();
+    if(d.price > 100) { setPrice(d.price, false); icon.style.animation=''; return; }
+  } catch {}
+
+  // API 4: goldprice.org
+  try {
+    const r2 = await fetch('https://data-asg.goldprice.org/dbXRates/USD', {signal: AbortSignal.timeout(5000)});
+    const d2 = await r2.json();
+    setPrice(d2.items[0].xauPrice * OZ, false);
   } catch {
-    try {
-      const r2 = await fetch('https://data-asg.goldprice.org/dbXRates/USD');
-      const d2 = await r2.json();
-      setPrice(d2.items[0].xauPrice * OZ, false);
-    } catch { setPrice(4761, true); }
+    // All APIs failed — use last known or fallback
+    setPrice(spotOz || 4761, true);
   }
+
   icon.style.animation = '';
 };
 
@@ -632,6 +915,7 @@ window.goTab = function(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
   btn.classList.add('active');
+  if(id === 'charts') setTimeout(renderCharts, 50);
 };
 
 // ── ABOUT ────────────────────────────────────────
