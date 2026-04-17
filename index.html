@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#060B12"/>
+<title>Gold Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{height:100%;background:#060B12}
+body{font-family:'DM Sans',sans-serif;color:#E2EAF4;background:#060B12;height:100%;max-width:480px;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;position:relative}
+input,button,select{font-family:'DM Sans',sans-serif}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#1A2535;border-radius:2px}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes slideUp{from{transform:translateY(22px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.screen{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:80px}
+.screen.active{display:block;animation:fadeIn .2s ease}
+
+.bottom-nav{background:rgba(13,21,32,.96);backdrop-filter:blur(20px);border-top:1px solid #1A2535;display:flex;padding:6px 0 env(safe-area-inset-bottom,16px);flex-shrink:0}
+.nav-btn{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;color:#4A6580;font-size:10px;font-weight:600;letter-spacing:.3px;transition:color .2s;position:relative}
+.nav-btn.active{color:#F0B429}
+.nav-dot{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;background:#F0B429;border-radius:50%;display:none}
+.nav-btn.active .nav-dot{display:block}
+
+.sec{font-size:10px;font-weight:600;letter-spacing:1.8px;color:#4A6580;text-transform:uppercase;display:flex;align-items:center;gap:8px;padding:6px 0 10px}
+.sec::after{content:'';flex:1;height:1px;background:#1A2535}
+
+.kpi{background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:14px 16px;border-left-width:3px;transition:border-color .2s,transform .2s}
+.kpi:hover{transform:translateY(-1px)}
+.kpi-label{font-size:10px;color:#4A6580;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.kpi-value{font-family:'Space Mono',monospace;font-size:19px;font-weight:700;letter-spacing:-.5px;line-height:1.1}
+.kpi-sub{font-size:11px;color:#4A6580;margin-top:5px}
+
+.hero{background:linear-gradient(135deg,#111C2A 0%,#08111C 100%);border:1px solid #223045;border-radius:20px;padding:22px 20px;margin-bottom:16px;position:relative;overflow:hidden;animation:slideUp .35s cubic-bezier(.4,0,.2,1) both}
+.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;pointer-events:none;background:radial-gradient(circle,rgba(240,180,41,.12) 0%,transparent 70%)}
+
+.live-strip{background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#00D4AA;animation:pulse 1.8s ease-in-out infinite;display:inline-block;flex-shrink:0}
+.price-mini{text-align:right}
+.price-mini-label{font-size:9px;color:#4A6580;letter-spacing:.5px}
+.price-mini-val{font-family:'Space Mono',monospace;font-size:12px;font-weight:700}
+
+.shimmer{background:linear-gradient(90deg,#141F2E 25%,#1A2535 50%,#141F2E 75%);background-size:400px 100%;animation:shimmer 1.4s infinite;border-radius:6px}
+
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;letter-spacing:.5px;padding:3px 9px;border-radius:20px}
+.tag-gold{background:#2A1F08;color:#F0B429;border:1px solid rgba(240,180,41,.25)}
+.tag-blue{background:#071E3D;color:#3B9EFF;border:1px solid rgba(59,158,255,.25)}
+
+.pcard{background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:15px 16px;transition:border-color .2s;animation:slideUp .3s ease both}
+.pcard:hover{border-color:#223045}
+
+.pbar{height:5px;border-radius:3px;background:#141F2E;overflow:hidden;margin-top:10px}
+.pbar-fill{height:100%;border-radius:3px;transition:width .8s ease}
+
+.field{background:#111C2A;border:1px solid #223045;border-radius:10px;color:#E2EAF4;font-size:14px;padding:11px 14px;width:100%;outline:none;transition:border-color .2s}
+.field:focus{border-color:#F0B429}
+.field::placeholder{color:#4A6580}
+.field-label{font-size:11px;color:#4A6580;font-weight:600;margin-bottom:6px;letter-spacing:.5px}
+
+.btn-gold{background:linear-gradient(135deg,#F0B429,#C8932A);color:#000;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all .2s;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-gold:hover{box-shadow:0 6px 20px rgba(240,180,41,.35);transform:translateY(-1px)}
+.btn-gold:active{transform:translateY(0)}
+.btn-ghost{background:#111C2A;color:#E2EAF4;border:1px solid #223045;border-radius:12px;font-weight:500;cursor:pointer;transition:all .2s;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-ghost:hover{border-color:#3B9EFF;color:#3B9EFF}
+.btn-danger{background:#FF4D4D;color:#fff;border:none;border-radius:12px;font-weight:600;cursor:pointer;font-size:14px}
+.icon-btn{background:#141F2E;border:1px solid #1A2535;border-radius:10px;padding:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#4A6580}
+.icon-btn:hover{border-color:#223045;color:#E2EAF4}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:flex-end;justify-content:center;z-index:999}
+.overlay.open{display:flex;animation:fadeIn .2s ease}
+.sheet{background:#0D1520;border-radius:22px 22px 0 0;border:1px solid #223045;border-bottom:none;padding:0 20px 36px;width:100%;max-width:480px;animation:slideUp .3s cubic-bezier(.34,1.2,.64,1);max-height:92vh;overflow-y:auto}
+.sheet-handle{width:40px;height:4px;background:#223045;border-radius:2px;margin:16px auto 0}
+
+.mono{font-family:'Space Mono',monospace}
+.p16{padding:16px 16px 0}
+.mb8{margin-bottom:8px}
+.mb12{margin-bottom:12px}
+.mb16{margin-bottom:16px}
+.mb20{margin-bottom:20px}
+.row{display:flex;align-items:center}
+.between{justify-content:space-between}
+.gap8{gap:8px}
+.gap10{gap:10px}
+.faint-card{background:#141F2E;border-radius:9px;padding:8px 10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.error-banner{background:#2D0A0A;border:1px solid rgba(255,77,77,.25);border-radius:12px;padding:10px 14px;font-size:12px;color:#FF4D4D;margin-bottom:16px}
+.empty-state{text-align:center;padding:60px 0;color:#4A6580}
+
+/* Loading overlay */
+.loading-screen{position:fixed;inset:0;background:#060B12;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px}
+.loading-spinner{width:40px;height:40px;border:3px solid #1A2535;border-top-color:#F0B429;border-radius:50%;animation:spin 1s linear infinite}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loading-screen">
+  <div style="font-size:32px">🥇</div>
+  <div class="loading-spinner"></div>
+  <div style="font-size:13px;color:#4A6580">Connecting to database...</div>
+</div>
+
+<!-- ═══════════ DASHBOARD ═══════════ -->
+<div id="screen-dashboard" class="screen">
+<div class="p16">
+  <div class="row between mb20" style="padding-top:16px">
+    <div>
+      <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Portfolio</div>
+      <div style="font-size:24px;font-weight:600">Gold <span style="color:#F0B429">Tracker</span></div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:10px;color:#4A6580;margin-bottom:4px">Holdings</div>
+      <div class="mono" id="hdr-weight" style="font-size:18px;color:#F0B429;font-weight:700">0.00 g</div>
+    </div>
+  </div>
+
+  <div class="hero mb16">
+    <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Current Portfolio Value</div>
+    <div class="mono" id="hero-usd" style="font-size:36px;font-weight:700;color:#F0B429;letter-spacing:-1.5px;line-height:1;margin-bottom:4px">—</div>
+    <div id="hero-iqd" style="font-size:13px;color:#4A6580;margin-bottom:16px">—</div>
+    <div id="hero-pl" style="display:none">
+      <div class="row gap8" style="flex-wrap:wrap">
+        <div id="hero-pl-badge" class="mono" style="border-radius:10px;padding:7px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px"></div>
+        <span style="font-size:11px;color:#4A6580">unrealized P&L</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-strip mb16">
+    <div class="row gap8" style="flex:1;min-width:0">
+      <span class="live-dot"></span>
+      <span style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:1px">LIVE GOLD</span>
+      <span id="price-time" style="font-size:10px;color:#4A6580"></span>
+    </div>
+    <div class="row gap10">
+      <div class="price-mini"><div class="price-mini-label">USD/oz</div><div class="price-mini-val" id="px-oz" style="color:#F0B429">...</div></div>
+      <div class="price-mini"><div class="price-mini-label">USD/g</div><div class="price-mini-val" id="px-g" style="color:#00D4AA">...</div></div>
+      <div class="price-mini"><div class="price-mini-label">IQD/g</div><div class="price-mini-val" id="px-iqd" style="color:#3B9EFF">...</div></div>
+      <button class="icon-btn" onclick="fetchPrice()" style="padding:7px">
+        <svg id="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="sec">Investment Summary</div>
+  <div class="grid2 mb12">
+    <div class="kpi" style="border-left-color:#F0B429"><div class="kpi-label">Total Invested (USD)</div><div class="kpi-value" id="k-total-usd" style="color:#F0B429">—</div></div>
+    <div class="kpi" style="border-left-color:#C8932A"><div class="kpi-label">Total Invested (IQD)</div><div class="kpi-value" id="k-total-iqd" style="color:#C8932A;font-size:15px">—</div></div>
+    <div class="kpi" style="border-left-color:#3B9EFF"><div class="kpi-label">Total Weight</div><div class="kpi-value" id="k-weight" style="color:#3B9EFF">—</div></div>
+    <div class="kpi" style="border-left-color:#A78BFA"><div class="kpi-label"># of Purchases</div><div class="kpi-value" id="k-count" style="color:#A78BFA;font-family:'DM Sans',sans-serif">—</div></div>
+  </div>
+
+  <div class="sec" style="margin-top:14px">Current Value</div>
+  <div class="grid2 mb12">
+    <div class="kpi" style="border-left-color:#00D4AA"><div class="kpi-label">Value (USD)</div><div class="kpi-value" id="k-val-usd" style="color:#00D4AA">—</div></div>
+    <div class="kpi" style="border-left-color:#00D4AA"><div class="kpi-label">Value (IQD)</div><div class="kpi-value" id="k-val-iqd" style="color:#00D4AA;font-size:15px">—</div></div>
+    <div class="kpi" id="kpi-pl-usd-card" style="border-left-color:#00D4AA"><div class="kpi-label">P&L (USD)</div><div class="kpi-value" id="k-pl-usd" style="color:#00D4AA">—</div></div>
+    <div class="kpi" id="kpi-pl-pct-card" style="border-left-color:#00D4AA"><div class="kpi-label">P&L (%)</div><div class="kpi-value" id="k-pl-pct" style="color:#00D4AA">—</div></div>
+  </div>
+
+  <div class="sec" style="margin-top:14px">Cost Analysis</div>
+  <div class="grid2 mb12">
+    <div class="kpi" style="border-left-color:#3B9EFF"><div class="kpi-label">Avg Cost / gram (USD)</div><div class="kpi-value" id="k-avg-usd" style="color:#3B9EFF">—</div></div>
+    <div class="kpi" style="border-left-color:#3B9EFF"><div class="kpi-label">Avg Cost / gram (IQD)</div><div class="kpi-value" id="k-avg-iqd" style="color:#3B9EFF;font-size:15px">—</div></div>
+    <div class="kpi" id="kpi-pfg-usd-card" style="border-left-color:#00D4AA"><div class="kpi-label">Profit / gram (USD)</div><div class="kpi-value" id="k-pfg-usd" style="color:#00D4AA">—</div></div>
+    <div class="kpi" id="kpi-pfg-iqd-card" style="border-left-color:#00D4AA"><div class="kpi-label">Profit / gram (IQD)</div><div class="kpi-value" id="k-pfg-iqd" style="color:#00D4AA;font-size:15px">—</div></div>
+  </div>
+
+  <div class="sec" style="margin-top:14px">Performance</div>
+  <div class="grid2 mb16">
+    <div class="kpi" style="border-left-color:#A78BFA"><div class="kpi-label">Investment Duration</div><div class="kpi-value" id="k-days" style="color:#A78BFA;font-family:'DM Sans',sans-serif">—</div></div>
+    <div class="kpi" id="kpi-ann-card" style="border-left-color:#00D4AA"><div class="kpi-label">Annualized Return</div><div class="kpi-value" id="k-ann" style="color:#00D4AA">—</div><div class="kpi-sub" id="k-ann-sub"></div></div>
+    <div class="kpi" style="border-left-color:#F0B429"><div class="kpi-label">Break-even (USD/g)</div><div class="kpi-value" id="k-breakeven" style="color:#F0B429">—</div><div class="kpi-sub">Spot must exceed this</div></div>
+    <div class="kpi" id="kpi-sva-card" style="border-left-color:#00D4AA"><div class="kpi-label">Spot vs Break-even</div><div class="kpi-value" id="k-sva" style="color:#00D4AA">—</div></div>
+  </div>
+
+  <div id="pl-progress" style="display:none;background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:14px 16px;margin-bottom:16px">
+    <div class="row between mb8">
+      <span style="font-size:11px;color:#4A6580">Cost basis → Current Value</span>
+      <span class="mono" id="pl-pct-bar" style="font-size:12px;font-weight:700"></span>
+    </div>
+    <div class="pbar"><div class="pbar-fill" id="pl-bar-fill"></div></div>
+    <div class="row between" style="margin-top:6px">
+      <span style="font-size:10px;color:#4A6580" id="pl-bar-cost">—</span>
+      <span style="font-size:10px" id="pl-bar-cur">—</span>
+    </div>
+  </div>
+  <div id="err-banner" class="error-banner" style="display:none">⚠ Using cached price — tap refresh to retry</div>
+</div>
+</div>
+
+<!-- ═══════════ PURCHASES ═══════════ -->
+<div id="screen-purchases" class="screen">
+<div class="p16">
+  <div class="row between mb20" style="padding-top:16px">
+    <div>
+      <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Records</div>
+      <div style="font-size:24px;font-weight:600">Purchases</div>
+    </div>
+    <button class="btn-gold" onclick="openAddModal()" style="padding:10px 18px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 4v16m8-8H4"/></svg>
+      Add
+    </button>
+  </div>
+  <div id="p-summary" class="grid3 mb20" style="display:none">
+    <div style="background:#0D1520;border:1px solid #1A2535;border-radius:12px;padding:10px 12px">
+      <div style="font-size:9px;color:#4A6580;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">Bars</div>
+      <div class="mono" id="ps-count" style="font-size:13px;font-weight:700;color:#A78BFA">—</div>
+    </div>
+    <div style="background:#0D1520;border:1px solid #1A2535;border-radius:12px;padding:10px 12px">
+      <div style="font-size:9px;color:#4A6580;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">Weight</div>
+      <div class="mono" id="ps-weight" style="font-size:13px;font-weight:700;color:#F0B429">—</div>
+    </div>
+    <div style="background:#0D1520;border:1px solid #1A2535;border-radius:12px;padding:10px 12px">
+      <div style="font-size:9px;color:#4A6580;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">Avg/buy</div>
+      <div class="mono" id="ps-avg" style="font-size:13px;font-weight:700;color:#3B9EFF">—</div>
+    </div>
+  </div>
+  <div id="purchases-list"></div>
+  <div id="purchases-empty" class="empty-state">
+    <div style="font-size:36px;margin-bottom:12px">📦</div>
+    <div style="font-size:16px;font-weight:600;color:#E2EAF4">No purchases yet</div>
+    <div style="font-size:13px;margin-top:6px">Tap "Add" to log your first bar</div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ SETTINGS ═══════════ -->
+<div id="screen-settings" class="screen">
+<div class="p16">
+  <div style="padding-top:16px;margin-bottom:24px">
+    <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Configuration</div>
+    <div style="font-size:24px;font-weight:600">Settings</div>
+  </div>
+
+  <div class="sec">Exchange Rate</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:16px;margin-bottom:20px">
+    <div class="field-label mb8">Current USD / IQD Rate</div>
+    <div class="row gap10 mb12">
+      <input class="field mono" type="number" id="rate-input" style="flex:1;font-size:18px"/>
+      <button class="btn-gold" onclick="applyRate()" style="padding:0 20px;height:46px">Apply</button>
+    </div>
+    <div style="font-size:12px;color:#4A6580">Update when the market rate changes. Affects all IQD calculations.</div>
+  </div>
+
+  <div class="sec">Database</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:16px;margin-bottom:20px">
+    <div class="row between">
+      <div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">Firebase Firestore</div>
+        <div style="font-size:12px;color:#4A6580">Data synced across all devices</div>
+      </div>
+      <div id="db-status" style="display:flex;align-items:center;gap:6px;font-size:12px;color:#00D4AA;font-weight:600">
+        <span class="live-dot"></span> Connected
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">About</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:0 16px">
+    <div id="about-rows"></div>
+  </div>
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="goTab('dashboard',this)">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+    Dashboard<span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="goTab('purchases',this)">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+    Purchases<span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="goTab('settings',this)">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    Settings<span class="nav-dot"></span>
+  </button>
+</nav>
+
+<!-- ADD MODAL -->
+<div class="overlay" id="add-overlay" onclick="if(event.target===this)closeAddModal()">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div style="position:sticky;top:0;background:#0D1520;padding:16px 0 12px;z-index:1">
+      <div class="row between">
+        <div style="font-size:18px;font-weight:700">🏅 New Purchase</div>
+        <button class="icon-btn" onclick="closeAddModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;padding-top:8px">
+      <div><div class="field-label">Brand</div><input class="field" type="text" id="f-brand" placeholder="PAMP Suisse"/></div>
+      <div><div class="field-label">Date</div><input class="field" type="date" id="f-date"/></div>
+      <div><div class="field-label">Weight (grams)</div><input class="field mono" type="number" step="0.01" id="f-weight" placeholder="5" oninput="updateSummary()"/></div>
+      <div><div class="field-label">Price Paid (IQD)</div><input class="field mono" type="number" id="f-iqd" placeholder="1255000" oninput="updateSummary()"/></div>
+      <div><div class="field-label">USD / IQD Rate</div><input class="field mono" type="number" id="f-rate" placeholder="1550" oninput="updateSummary()"/></div>
+      <div><div class="field-label">Certificate No. <span style="color:#4A6580;font-weight:400">(optional)</span></div><input class="field" type="text" id="f-cert" placeholder="C842378"/></div>
+      <div id="form-summary" style="display:none;background:#141F2E;border-radius:12px;padding:12px 14px">
+        <div style="font-size:10px;color:#4A6580;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">Summary</div>
+        <div class="mono" id="fs-total" style="font-size:14px;color:#F0B429;margin-bottom:4px"></div>
+        <div id="fs-gram" style="font-size:12px;color:#4A6580"></div>
+      </div>
+      <button class="btn-gold" onclick="addPurchase()" id="save-btn" style="padding:15px;font-size:15px;margin-top:4px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
+        Save Purchase
+      </button>
+      <button class="btn-ghost" onclick="closeAddModal()" style="padding:13px">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="overlay" id="del-overlay" onclick="if(event.target===this)closeDelModal()">
+  <div class="sheet" style="padding:20px 20px 36px">
+    <div class="sheet-handle"></div>
+    <div style="font-size:18px;font-weight:700;margin:20px 0 8px">Delete Purchase?</div>
+    <div style="font-size:13px;color:#4A6580;margin-bottom:24px">This action cannot be undone.</div>
+    <div class="row gap10">
+      <button class="btn-ghost" onclick="closeDelModal()" style="flex:1;padding:13px">Cancel</button>
+      <button class="btn-danger" onclick="confirmDelete()" style="flex:1;padding:13px">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" style="position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111C2A;border:1px solid #223045;border-radius:12px;padding:10px 18px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;pointer-events:none;z-index:9999;white-space:nowrap"></div>
+
+<!-- ═══════════ FIREBASE SDK ═══════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, query, orderBy, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ── FIREBASE CONFIG ──────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCpIoC1afts82d9EN-Q-aReAl6cAK2pmoM",
+  authDomain: "gold-tracker-5b848.firebaseapp.com",
+  projectId: "gold-tracker-5b848",
+  storageBucket: "gold-tracker-5b848.firebasestorage.app",
+  messagingSenderId: "819898043620",
+  appId: "1:819898043620:web:89d49c4d255ac4f5fd30f1",
+  measurementId: "G-YPWT18XPM6"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+const COL = "gold_purchases";
+
+// ── STATE ────────────────────────────────────────
+let purchases     = [];
+let rate          = +(localStorage.getItem('gt_rate') || 1550);
+let spotOz        = null;
+let deleteTargetId = null;
+const OZ          = 31.1035;
+
+// ── HELPERS ──────────────────────────────────────
+const fmtN   = (n,d=2) => Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtUSD = n => n==null ? '—' : '$'+fmtN(n);
+const fmtIQD = n => n==null ? '—' : Math.round(n).toLocaleString('en-US')+' IQD';
+const daysSince = d => Math.max(0,Math.round((Date.now()-new Date(d))/86400000));
+
+function toast(msg, color='#00D4AA') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.color = color;
+  t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; },2500);
+}
+
+function setText(id, val) { const el=document.getElementById(id); if(el) el.textContent=val; }
+
+// ── INIT ─────────────────────────────────────────
+async function init() {
+  document.getElementById('rate-input').value = rate;
+  document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('f-rate').value = rate;
+  buildAbout();
+
+  // Real-time listener from Firestore
+  const q = query(collection(db, COL), orderBy("date", "desc"));
+  onSnapshot(q, (snapshot) => {
+    purchases = snapshot.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+    document.getElementById('loading-screen').style.display = 'none';
+    renderDashboard();
+    renderPurchases();
+  }, (err) => {
+    console.error(err);
+    document.getElementById('loading-screen').style.display = 'none';
+    toast('Database connection error', '#FF4D4D');
+    document.getElementById('db-status').innerHTML = '<span style="color:#FF4D4D">● Disconnected</span>';
+  });
+
+  fetchPrice();
+}
+
+// ── LIVE PRICE ───────────────────────────────────
+window.fetchPrice = async function() {
+  const icon = document.getElementById('refresh-icon');
+  icon.style.animation = 'spin 1s linear infinite';
+  try {
+    const r = await fetch('https://api.gold-api.com/price/XAU',{headers:{'x-access-token':'goldapi-public'}});
+    if(!r.ok) throw 0;
+    const d = await r.json();
+    setPrice(d.price, false);
+  } catch {
+    try {
+      const r2 = await fetch('https://data-asg.goldprice.org/dbXRates/USD');
+      const d2 = await r2.json();
+      setPrice(d2.items[0].xauPrice * OZ, false);
+    } catch { setPrice(4761, true); }
+  }
+  icon.style.animation = '';
+};
+
+function setPrice(oz, err) {
+  spotOz = oz;
+  const g = oz/OZ, iqd = g*rate, now = new Date();
+  setText('px-oz', fmtUSD(oz));
+  setText('px-g', fmtUSD(g));
+  setText('px-iqd', Math.round(iqd).toLocaleString('en-US'));
+  setText('price-time', now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}));
+  document.getElementById('err-banner').style.display = err?'block':'none';
+  renderDashboard();
+}
+
+// ── DASHBOARD ────────────────────────────────────
+function renderDashboard() {
+  const totalW   = purchases.reduce((s,p)=>s+p.weight,0);
+  const totalIQD = purchases.reduce((s,p)=>s+p.priceIQD,0);
+  const totalUSD = purchases.reduce((s,p)=>s+p.priceIQD/p.rate,0);
+  const spotG    = spotOz ? spotOz/OZ : null;
+  const curUSD   = spotG ? spotG*totalW : null;
+  const curIQD   = curUSD ? curUSD*rate : null;
+  const plUSD    = curUSD!=null ? curUSD-totalUSD : null;
+  const plPct    = plUSD!=null&&totalUSD>0 ? (plUSD/totalUSD)*100 : null;
+  const avgUSD   = totalW>0 ? totalUSD/totalW : null;
+  const avgIQD   = totalW>0 ? totalIQD/totalW : null;
+  const pfgUSD   = spotG&&avgUSD ? spotG-avgUSD : null;
+  const pfgIQD   = pfgUSD!=null ? pfgUSD*rate : null;
+  const firstD   = purchases.length ? [...purchases].sort((a,b)=>a.date.localeCompare(b.date))[0].date : null;
+  const dur      = firstD ? daysSince(firstD) : 0;
+  const ann      = dur>30&&curUSD&&totalUSD ? (Math.pow(curUSD/totalUSD,365/dur)-1)*100 : null;
+  const sva      = spotG&&avgUSD ? spotG-avgUSD : null;
+  const isP      = plUSD!=null&&plUSD>=0;
+
+  setText('hdr-weight', fmtN(totalW,2)+' g');
+  setText('hero-usd', curUSD?fmtUSD(curUSD):fmtUSD(totalUSD));
+  setText('hero-iqd', curIQD?fmtIQD(curIQD):fmtIQD(totalIQD));
+
+  if(plUSD!=null&&spotG) {
+    const b=document.getElementById('hero-pl-badge');
+    b.textContent=(isP?'▲ +':'▼ ')+fmtUSD(Math.abs(plUSD))+' ('+Math.abs(plPct).toFixed(2)+'%)';
+    b.style.background=isP?'#002E25':'#2D0A0A';
+    b.style.color=isP?'#00D4AA':'#FF4D4D';
+    b.style.border='1px solid '+(isP?'rgba(0,212,170,.25)':'rgba(255,77,77,.25)');
+    document.getElementById('hero-pl').style.display='block';
+  }
+
+  setText('k-total-usd', fmtUSD(totalUSD));
+  setText('k-total-iqd', fmtIQD(totalIQD));
+  setText('k-weight', fmtN(totalW,2)+' g');
+  setText('k-count', purchases.length);
+
+  const liveColor = (val, pos) => pos ? '#00D4AA' : '#FF4D4D';
+  if(spotG) {
+    const vc=curUSD!=null; const pc=plUSD!=null;
+    if(vc){ setText('k-val-usd',fmtUSD(curUSD)); setText('k-val-iqd',fmtIQD(curIQD)); }
+    if(pc){
+      const pColor=isP?'#00D4AA':'#FF4D4D';
+      const plEl=document.getElementById('k-pl-usd'); plEl.textContent=(isP?'+':'')+fmtUSD(plUSD); plEl.style.color=pColor;
+      const ppEl=document.getElementById('k-pl-pct'); ppEl.textContent=(isP?'+':'')+plPct.toFixed(2)+'%'; ppEl.style.color=pColor;
+      document.getElementById('kpi-pl-usd-card').style.borderLeftColor=pColor;
+      document.getElementById('kpi-pl-pct-card').style.borderLeftColor=pColor;
+    }
+    if(pfgUSD!=null){
+      const pfC=pfgUSD>=0?'#00D4AA':'#FF4D4D';
+      const pfuEl=document.getElementById('k-pfg-usd'); pfuEl.textContent=(pfgUSD>=0?'+':'')+fmtUSD(pfgUSD); pfuEl.style.color=pfC;
+      const pfiEl=document.getElementById('k-pfg-iqd'); pfiEl.textContent=(pfgIQD>=0?'+':'')+fmtIQD(pfgIQD); pfiEl.style.color=pfC;
+      document.getElementById('kpi-pfg-usd-card').style.borderLeftColor=pfC;
+      document.getElementById('kpi-pfg-iqd-card').style.borderLeftColor=pfC;
+    }
+  }
+
+  setText('k-avg-usd', avgUSD?fmtUSD(avgUSD):'—');
+  setText('k-avg-iqd', avgIQD?fmtIQD(avgIQD):'—');
+  setText('k-days', dur+' days');
+  setText('k-breakeven', avgUSD?fmtUSD(avgUSD):'—');
+
+  const annEl=document.getElementById('k-ann');
+  if(ann!=null){ annEl.textContent=(ann>=0?'+':'')+ann.toFixed(2)+'%'; annEl.style.color=ann>=0?'#00D4AA':'#FF4D4D'; document.getElementById('kpi-ann-card').style.borderLeftColor=ann>=0?'#00D4AA':'#FF4D4D'; }
+  document.getElementById('k-ann-sub').textContent=dur<=30?'Need 30+ days':'';
+
+  if(sva!=null&&spotG){
+    const svaEl=document.getElementById('k-sva'); svaEl.textContent=(sva>=0?'+':'')+fmtUSD(sva)+'/g'; svaEl.style.color=sva>=0?'#00D4AA':'#FF4D4D';
+    document.getElementById('kpi-sva-card').style.borderLeftColor=sva>=0?'#00D4AA':'#FF4D4D';
+  }
+
+  if(plPct!=null&&spotG){
+    document.getElementById('pl-progress').style.display='block';
+    const pctBar=document.getElementById('pl-pct-bar'); pctBar.textContent=(isP?'+':'')+plPct.toFixed(2)+'%'; pctBar.style.color=isP?'#00D4AA':'#FF4D4D';
+    const fill=document.getElementById('pl-bar-fill'); fill.style.width=Math.min(Math.abs(plPct),100)+'%'; fill.style.background=isP?'linear-gradient(90deg,#00D4AA,#00FFCC)':'linear-gradient(90deg,#FF4D4D,#FF8A8A)';
+    setText('pl-bar-cost','Cost: '+fmtUSD(totalUSD));
+    const cur=document.getElementById('pl-bar-cur'); cur.textContent=fmtUSD(curUSD); cur.style.color=isP?'#00D4AA':'#FF4D4D';
+  }
+}
+
+// ── PURCHASES LIST ───────────────────────────────
+function renderPurchases() {
+  const list=document.getElementById('purchases-list');
+  const empty=document.getElementById('purchases-empty');
+  const summary=document.getElementById('p-summary');
+  if(!purchases.length){ list.innerHTML=''; empty.style.display='block'; summary.style.display='none'; return; }
+  empty.style.display='none'; summary.style.display='grid';
+  const totalW=purchases.reduce((s,p)=>s+p.weight,0);
+  const totalU=purchases.reduce((s,p)=>s+p.priceIQD/p.rate,0);
+  setText('ps-count', purchases.length);
+  setText('ps-weight', fmtN(totalW,2)+'g');
+  setText('ps-avg', fmtUSD(totalU/purchases.length));
+  const spotG=spotOz?spotOz/OZ:null;
+  list.innerHTML=purchases.map((p,i)=>{
+    const pu=p.priceIQD/p.rate, cv=spotG?spotG*p.weight:null, pl=cv?cv-pu:null;
+    const plp=pl&&pu?(pl/pu)*100:null, isp=pl!=null&&pl>=0, cpg=fmtUSD(pu/p.weight);
+    const barW=plp!=null?Math.min(Math.abs(plp),100):0, barC=isp?'#00D4AA':'#FF4D4D';
+    return `<div class="pcard mb12" style="animation-delay:${i*40}ms">
+      <div class="row between mb12">
+        <div>
+          <div class="row gap8 mb8">
+            <span style="font-size:18px">🏅</span>
+            <span style="font-size:14px;font-weight:600">${p.brand||'Gold Bar'}</span>
+            <span class="tag tag-gold" style="font-size:9px">${p.weight}g</span>
+          </div>
+          <div class="row gap8" style="flex-wrap:wrap">
+            <span style="font-size:11px;color:#4A6580">${p.date}</span>
+            ${p.cert?`<span class="tag tag-blue" style="font-size:9px">${p.cert}</span>`:''}
+          </div>
+        </div>
+        <div style="text-align:right">
+          ${plp!=null?`<div class="mono" style="font-size:14px;font-weight:700;color:${barC}">${isp?'+':''}${plp.toFixed(1)}%</div>`:''}
+          ${pl!=null?`<div style="font-size:11px;color:${barC}">${isp?'+':''}${fmtUSD(pl)}</div>`:''}
+        </div>
+      </div>
+      <div class="grid3 mb12">
+        <div class="faint-card"><div style="font-size:9px;color:#4A6580;margin-bottom:3px">Paid (IQD)</div><div class="mono" style="font-size:11px;font-weight:600;color:#E2EAF4">${fmtIQD(p.priceIQD)}</div></div>
+        <div class="faint-card"><div style="font-size:9px;color:#4A6580;margin-bottom:3px">Paid (USD)</div><div class="mono" style="font-size:11px;font-weight:600;color:#3B9EFF">${fmtUSD(pu)}</div></div>
+        <div class="faint-card"><div style="font-size:9px;color:#4A6580;margin-bottom:3px">Cost/gram</div><div class="mono" style="font-size:11px;font-weight:600;color:#F0B429">${cpg}</div></div>
+      </div>
+      ${plp!=null?`<div class="pbar"><div class="pbar-fill" style="width:${barW}%;background:${barC}"></div></div>`:''}
+      <div style="display:flex;justify-content:flex-end;margin-top:10px">
+        <button onclick="openDelModal('${p.firestoreId}')"
+          style="background:none;border:none;cursor:pointer;color:#4A6580;padding:4px 8px;border-radius:8px;font-size:11px;display:flex;align-items:center;gap:4px;transition:color .2s"
+          onmouseover="this.style.color='#FF4D4D'" onmouseout="this.style.color='#4A6580'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          Delete
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── ADD PURCHASE ─────────────────────────────────
+window.openAddModal = function() {
+  document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('f-brand').value='PAMP Suisse';
+  document.getElementById('f-weight').value='';
+  document.getElementById('f-iqd').value='';
+  document.getElementById('f-rate').value=rate;
+  document.getElementById('f-cert').value='';
+  document.getElementById('form-summary').style.display='none';
+  document.getElementById('add-overlay').classList.add('open');
+};
+window.closeAddModal = function() { document.getElementById('add-overlay').classList.remove('open'); };
+
+window.updateSummary = function() {
+  const w=+document.getElementById('f-weight').value, iq=+document.getElementById('f-iqd').value, r=+document.getElementById('f-rate').value;
+  const s=document.getElementById('form-summary');
+  if(w&&iq&&r){ setText('fs-total',fmtUSD(iq/r)+' total'); setText('fs-gram',fmtUSD(iq/r/w)+' per gram'); s.style.display='block'; }
+  else s.style.display='none';
+};
+
+window.addPurchase = async function() {
+  const brand=document.getElementById('f-brand').value.trim()||'Gold Bar';
+  const date=document.getElementById('f-date').value;
+  const weight=+document.getElementById('f-weight').value;
+  const priceIQD=+document.getElementById('f-iqd').value;
+  const r=+document.getElementById('f-rate').value;
+  const cert=document.getElementById('f-cert').value.trim();
+  if(!date||!weight||!priceIQD||!r){ toast('Please fill all required fields','#FF4D4D'); return; }
+  const btn=document.getElementById('save-btn');
+  btn.textContent='Saving...'; btn.disabled=true;
+  try {
+    await addDoc(collection(db,COL),{ brand, date, weight, priceIQD, rate:r, cert, createdAt: new Date().toISOString() });
+    closeAddModal(); toast('Purchase saved to Firebase ✓');
+  } catch(e) { toast('Error saving: '+e.message,'#FF4D4D'); }
+  btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg> Save Purchase';
+  btn.disabled=false;
+};
+
+// ── DELETE ───────────────────────────────────────
+window.openDelModal = function(id) { deleteTargetId=id; document.getElementById('del-overlay').classList.add('open'); };
+window.closeDelModal = function() { document.getElementById('del-overlay').classList.remove('open'); deleteTargetId=null; };
+window.confirmDelete = async function() {
+  if(!deleteTargetId) return;
+  try {
+    await deleteDoc(doc(db,COL,deleteTargetId));
+    closeDelModal(); toast('Purchase deleted','#FF4D4D');
+  } catch(e) { toast('Error: '+e.message,'#FF4D4D'); }
+};
+
+// ── SETTINGS ─────────────────────────────────────
+window.applyRate = function() {
+  const v=+document.getElementById('rate-input').value;
+  if(!v||v<100){ toast('Invalid rate','#FF4D4D'); return; }
+  rate=v; localStorage.setItem('gt_rate',v);
+  renderDashboard(); renderPurchases();
+  toast('Rate updated to '+v.toLocaleString()+' IQD');
+};
+
+// ── NAV ──────────────────────────────────────────
+window.goTab = function(id, btn) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  btn.classList.add('active');
+};
+
+// ── ABOUT ────────────────────────────────────────
+function buildAbout() {
+  const rows=[['App','Gold Tracker'],['Version','1.0 MVP'],['Database','Firebase Firestore'],['Price Source','Gold-API'],['Currency','USD & IQD']];
+  document.getElementById('about-rows').innerHTML=rows.map(([k,v])=>`
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1A2535">
+      <span style="font-size:13px;color:#4A6580">${k}</span>
+      <span style="font-size:13px;font-weight:500">${v}</span>
+    </div>`).join('');
+}
+
+// ── START ────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
