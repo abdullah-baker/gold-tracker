@@ -24,10 +24,11 @@ input,button,select{font-family:'DM Sans',sans-serif}
 @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.screen{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:80px}
+.screens-wrapper{flex:1;overflow:hidden;position:relative}
+.screen{display:none;position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:20px}
 .screen.active{display:block;animation:fadeIn .2s ease}
 
-.bottom-nav{background:rgba(13,21,32,.96);backdrop-filter:blur(20px);border-top:1px solid #1A2535;display:flex;padding:6px 0 env(safe-area-inset-bottom,16px);flex-shrink:0}
+.bottom-nav{background:rgba(13,21,32,.96);backdrop-filter:blur(20px);border-top:1px solid #1A2535;display:flex;padding:6px 0 env(safe-area-inset-bottom,16px);flex-shrink:0;position:relative;z-index:100}
 .nav-btn{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;color:#4A6580;font-size:10px;font-weight:600;letter-spacing:.3px;transition:color .2s;position:relative}
 .nav-btn.active{color:#F0B429}
 .nav-dot{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;background:#F0B429;border-radius:50%;display:none}
@@ -112,8 +113,10 @@ input,button,select{font-family:'DM Sans',sans-serif}
   <div style="font-size:13px;color:#4A6580">Connecting to database...</div>
 </div>
 
+<div class="screens-wrapper">
+
 <!-- ═══════════ DASHBOARD ═══════════ -->
-<div id="screen-dashboard" class="screen">
+<div id="screen-dashboard" class="screen active">
 <div class="p16">
   <div class="row between mb20" style="padding-top:16px">
     <div>
@@ -313,6 +316,8 @@ input,button,select{font-family:'DM Sans',sans-serif}
 
 </div>
 </div>
+
+</div><!-- /screens-wrapper -->
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
