@@ -705,41 +705,52 @@ window.fetchPrice = async function() {
   const icon = document.getElementById('refresh-icon');
   icon.style.animation = 'spin 1s linear infinite';
 
-  // API 1: metals.live (no limit, no key)
+  // API 1: frankfurter.app — ECB data, very reliable, no key, no limit
   try {
-    const r = await fetch('https://metals.live/api/v1/spot', {signal: AbortSignal.timeout(5000)});
+    const r = await fetch('https://api.frankfurter.app/latest?from=XAU&to=USD', {signal: AbortSignal.timeout(6000)});
+    if(!r.ok) throw 0;
+    const d = await r.json();
+    if(d.rates && d.rates.USD && d.rates.USD > 100) {
+      setPrice(d.rates.USD, false); icon.style.animation=''; return;
+    }
+  } catch {}
+
+  // API 2: metals.live
+  try {
+    const r = await fetch('https://metals.live/api/v1/spot', {signal: AbortSignal.timeout(6000)});
     if(!r.ok) throw 0;
     const d = await r.json();
     const gold = Array.isArray(d) ? d.find(x=>x.metal==='gold') : null;
     if(gold && gold.price > 100) { setPrice(gold.price, false); icon.style.animation=''; return; }
   } catch {}
 
-  // API 2: frankfurter + XAU (free, no limit)
+  // API 3: open.er-api.com — XAU/USD
   try {
-    const r = await fetch('https://api.frankfurter.app/latest?from=XAU&to=USD', {signal: AbortSignal.timeout(5000)});
+    const r = await fetch('https://open.er-api.com/v6/latest/XAU', {signal: AbortSignal.timeout(6000)});
     if(!r.ok) throw 0;
     const d = await r.json();
-    if(d.rates && d.rates.USD) { setPrice(d.rates.USD, false); icon.style.animation=''; return; }
+    if(d.rates && d.rates.USD && d.rates.USD > 100) {
+      setPrice(d.rates.USD, false); icon.style.animation=''; return;
+    }
   } catch {}
 
-  // API 3: gold-api.com
+  // API 4: gold-api.com
   try {
-    const r = await fetch('https://api.gold-api.com/price/XAU',{headers:{'x-access-token':'goldapi-public'}, signal: AbortSignal.timeout(5000)});
+    const r = await fetch('https://api.gold-api.com/price/XAU', {headers:{'x-access-token':'goldapi-public'}, signal: AbortSignal.timeout(6000)});
     if(!r.ok) throw 0;
     const d = await r.json();
     if(d.price > 100) { setPrice(d.price, false); icon.style.animation=''; return; }
   } catch {}
 
-  // API 4: goldprice.org
+  // API 5: goldprice.org
   try {
-    const r2 = await fetch('https://data-asg.goldprice.org/dbXRates/USD', {signal: AbortSignal.timeout(5000)});
-    const d2 = await r2.json();
-    setPrice(d2.items[0].xauPrice * OZ, false);
-  } catch {
-    // All APIs failed — use last known or fallback
-    setPrice(spotOz || 4761, true);
-  }
+    const r = await fetch('https://data-asg.goldprice.org/dbXRates/USD', {signal: AbortSignal.timeout(6000)});
+    const d = await r.json();
+    if(d.items && d.items[0]) { setPrice(d.items[0].xauPrice * OZ, false); icon.style.animation=''; return; }
+  } catch {}
 
+  // All failed — keep last known price, show warning
+  setPrice(spotOz || 4761, true);
   icon.style.animation = '';
 };
 
