@@ -17,105 +17,76 @@ input,button,select{font-family:'DM Sans',sans-serif}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#1A2535;border-radius:2px}
-
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 @keyframes slideUp{from{transform:translateY(22px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
 @keyframes spin{to{transform:rotate(360deg)}}
-
 .screens-wrapper{flex:1;overflow:hidden;position:relative}
 .screen{display:none;position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:20px}
 .screen.active{display:block;animation:fadeIn .2s ease}
-
 .bottom-nav{background:rgba(13,21,32,.96);backdrop-filter:blur(20px);border-top:1px solid #1A2535;display:flex;padding:6px 0 env(safe-area-inset-bottom,16px);flex-shrink:0;position:relative;z-index:100}
 .nav-btn{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;color:#4A6580;font-size:10px;font-weight:600;letter-spacing:.3px;transition:color .2s;position:relative}
 .nav-btn.active{color:#F0B429}
 .nav-dot{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;background:#F0B429;border-radius:50%;display:none}
 .nav-btn.active .nav-dot{display:block}
-
 .sec{font-size:10px;font-weight:600;letter-spacing:1.8px;color:#4A6580;text-transform:uppercase;display:flex;align-items:center;gap:8px;padding:6px 0 10px}
 .sec::after{content:'';flex:1;height:1px;background:#1A2535}
-
 .kpi{background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:14px 16px;border-left-width:3px;transition:border-color .2s,transform .2s}
 .kpi:hover{transform:translateY(-1px)}
 .kpi-label{font-size:10px;color:#4A6580;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
 .kpi-value{font-family:'Space Mono',monospace;font-size:19px;font-weight:700;letter-spacing:-.5px;line-height:1.1}
 .kpi-sub{font-size:11px;color:#4A6580;margin-top:5px}
-
 .hero{background:linear-gradient(135deg,#111C2A 0%,#08111C 100%);border:1px solid #223045;border-radius:20px;padding:22px 20px;margin-bottom:16px;position:relative;overflow:hidden;animation:slideUp .35s cubic-bezier(.4,0,.2,1) both}
 .hero::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;pointer-events:none;background:radial-gradient(circle,rgba(240,180,41,.12) 0%,transparent 70%)}
-
 .live-strip{background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .live-dot{width:7px;height:7px;border-radius:50%;background:#00D4AA;animation:pulse 1.8s ease-in-out infinite;display:inline-block;flex-shrink:0}
 .price-mini{text-align:right}
 .price-mini-label{font-size:9px;color:#4A6580;letter-spacing:.5px}
 .price-mini-val{font-family:'Space Mono',monospace;font-size:12px;font-weight:700}
-
-.shimmer{background:linear-gradient(90deg,#141F2E 25%,#1A2535 50%,#141F2E 75%);background-size:400px 100%;animation:shimmer 1.4s infinite;border-radius:6px}
-
 .tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;letter-spacing:.5px;padding:3px 9px;border-radius:20px}
 .tag-gold{background:#2A1F08;color:#F0B429;border:1px solid rgba(240,180,41,.25)}
 .tag-blue{background:#071E3D;color:#3B9EFF;border:1px solid rgba(59,158,255,.25)}
-
 .pcard{background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:15px 16px;transition:border-color .2s;animation:slideUp .3s ease both}
 .pcard:hover{border-color:#223045}
-
 .pbar{height:5px;border-radius:3px;background:#141F2E;overflow:hidden;margin-top:10px}
 .pbar-fill{height:100%;border-radius:3px;transition:width .8s ease}
-
 .field{background:#111C2A;border:1px solid #223045;border-radius:10px;color:#E2EAF4;font-size:14px;padding:11px 14px;width:100%;outline:none;transition:border-color .2s}
 .field:focus{border-color:#F0B429}
 .field::placeholder{color:#4A6580}
 .field-label{font-size:11px;color:#4A6580;font-weight:600;margin-bottom:6px;letter-spacing:.5px}
-
 .btn-gold{background:linear-gradient(135deg,#F0B429,#C8932A);color:#000;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all .2s;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-gold:hover{box-shadow:0 6px 20px rgba(240,180,41,.35);transform:translateY(-1px)}
-.btn-gold:active{transform:translateY(0)}
 .btn-ghost{background:#111C2A;color:#E2EAF4;border:1px solid #223045;border-radius:12px;font-weight:500;cursor:pointer;transition:all .2s;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-ghost:hover{border-color:#3B9EFF;color:#3B9EFF}
 .btn-danger{background:#FF4D4D;color:#fff;border:none;border-radius:12px;font-weight:600;cursor:pointer;font-size:14px}
 .icon-btn{background:#141F2E;border:1px solid #1A2535;border-radius:10px;padding:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#4A6580}
 .icon-btn:hover{border-color:#223045;color:#E2EAF4}
-
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:flex-end;justify-content:center;z-index:999}
 .overlay.open{display:flex;animation:fadeIn .2s ease}
 .sheet{background:#0D1520;border-radius:22px 22px 0 0;border:1px solid #223045;border-bottom:none;padding:0 20px 36px;width:100%;max-width:480px;animation:slideUp .3s cubic-bezier(.34,1.2,.64,1);max-height:92vh;overflow-y:auto}
 .sheet-handle{width:40px;height:4px;background:#223045;border-radius:2px;margin:16px auto 0}
-
 .mono{font-family:'Space Mono',monospace}
 .p16{padding:16px 16px 0}
-.mb8{margin-bottom:8px}
-.mb12{margin-bottom:12px}
-.mb16{margin-bottom:16px}
-.mb20{margin-bottom:20px}
-.row{display:flex;align-items:center}
-.between{justify-content:space-between}
-.gap8{gap:8px}
-.gap10{gap:10px}
+.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.mb20{margin-bottom:20px}
+.row{display:flex;align-items:center}.between{justify-content:space-between}.gap8{gap:8px}.gap10{gap:10px}
 .faint-card{background:#141F2E;border-radius:9px;padding:8px 10px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .error-banner{background:#2D0A0A;border:1px solid rgba(255,77,77,.25);border-radius:12px;padding:10px 14px;font-size:12px;color:#FF4D4D;margin-bottom:16px}
 .empty-state{text-align:center;padding:60px 0;color:#4A6580}
-
-/* Loading overlay */
 .loading-screen{position:fixed;inset:0;background:#060B12;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px}
 .loading-spinner{width:40px;height:40px;border:3px solid #1A2535;border-top-color:#F0B429;border-radius:50%;animation:spin 1s linear infinite}
 </style>
 </head>
 <body>
-
-<!-- Loading Screen -->
 <div class="loading-screen" id="loading-screen">
   <div style="font-size:32px">🥇</div>
   <div class="loading-spinner"></div>
   <div style="font-size:13px;color:#4A6580">Connecting to database...</div>
 </div>
-
 <div class="screens-wrapper">
-
-<!-- ═══════════ DASHBOARD ═══════════ -->
+<!-- DASHBOARD -->
 <div id="screen-dashboard" class="screen active">
 <div class="p16">
   <div class="row between mb20" style="padding-top:16px">
@@ -128,7 +99,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
       <div class="mono" id="hdr-weight" style="font-size:18px;color:#F0B429;font-weight:700">0.00 g</div>
     </div>
   </div>
-
   <div class="hero mb16">
     <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Current Portfolio Value</div>
     <div class="mono" id="hero-usd" style="font-size:36px;font-weight:700;color:#F0B429;letter-spacing:-1.5px;line-height:1;margin-bottom:4px">—</div>
@@ -140,7 +110,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
       </div>
     </div>
   </div>
-
   <div class="live-strip mb16">
     <div class="row gap8" style="flex:1;min-width:0">
       <span class="live-dot"></span>
@@ -156,7 +125,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
       </button>
     </div>
   </div>
-
   <div class="sec">Investment Summary</div>
   <div class="grid2 mb12">
     <div class="kpi" style="border-left-color:#F0B429"><div class="kpi-label">Total Invested (USD)</div><div class="kpi-value" id="k-total-usd" style="color:#F0B429">—</div></div>
@@ -164,7 +132,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
     <div class="kpi" style="border-left-color:#3B9EFF"><div class="kpi-label">Total Weight</div><div class="kpi-value" id="k-weight" style="color:#3B9EFF">—</div></div>
     <div class="kpi" style="border-left-color:#A78BFA"><div class="kpi-label"># of Purchases</div><div class="kpi-value" id="k-count" style="color:#A78BFA;font-family:'DM Sans',sans-serif">—</div></div>
   </div>
-
   <div class="sec" style="margin-top:14px">Current Value</div>
   <div class="grid2 mb12">
     <div class="kpi" style="border-left-color:#00D4AA"><div class="kpi-label">Value (USD)</div><div class="kpi-value" id="k-val-usd" style="color:#00D4AA">—</div></div>
@@ -172,7 +139,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
     <div class="kpi" id="kpi-pl-usd-card" style="border-left-color:#00D4AA"><div class="kpi-label">P&L (USD)</div><div class="kpi-value" id="k-pl-usd" style="color:#00D4AA">—</div></div>
     <div class="kpi" id="kpi-pl-pct-card" style="border-left-color:#00D4AA"><div class="kpi-label">P&L (%)</div><div class="kpi-value" id="k-pl-pct" style="color:#00D4AA">—</div></div>
   </div>
-
   <div class="sec" style="margin-top:14px">Cost Analysis</div>
   <div class="grid2 mb12">
     <div class="kpi" style="border-left-color:#3B9EFF"><div class="kpi-label">Avg Cost / gram (USD)</div><div class="kpi-value" id="k-avg-usd" style="color:#3B9EFF">—</div></div>
@@ -180,7 +146,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
     <div class="kpi" id="kpi-pfg-usd-card" style="border-left-color:#00D4AA"><div class="kpi-label">Profit / gram (USD)</div><div class="kpi-value" id="k-pfg-usd" style="color:#00D4AA">—</div></div>
     <div class="kpi" id="kpi-pfg-iqd-card" style="border-left-color:#00D4AA"><div class="kpi-label">Profit / gram (IQD)</div><div class="kpi-value" id="k-pfg-iqd" style="color:#00D4AA;font-size:15px">—</div></div>
   </div>
-
   <div class="sec" style="margin-top:14px">Performance</div>
   <div class="grid2 mb16">
     <div class="kpi" style="border-left-color:#A78BFA"><div class="kpi-label">Investment Duration</div><div class="kpi-value" id="k-days" style="color:#A78BFA;font-family:'DM Sans',sans-serif">—</div></div>
@@ -188,7 +153,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
     <div class="kpi" style="border-left-color:#F0B429"><div class="kpi-label">Break-even (USD/g)</div><div class="kpi-value" id="k-breakeven" style="color:#F0B429">—</div><div class="kpi-sub">Spot must exceed this</div></div>
     <div class="kpi" id="kpi-sva-card" style="border-left-color:#00D4AA"><div class="kpi-label">Spot vs Break-even</div><div class="kpi-value" id="k-sva" style="color:#00D4AA">—</div></div>
   </div>
-
   <div id="pl-progress" style="display:none;background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:14px 16px;margin-bottom:16px">
     <div class="row between mb8">
       <span style="font-size:11px;color:#4A6580">Cost basis → Current Value</span>
@@ -200,11 +164,10 @@ input,button,select{font-family:'DM Sans',sans-serif}
       <span style="font-size:10px" id="pl-bar-cur">—</span>
     </div>
   </div>
-  <div id="err-banner" class="error-banner" style="display:none">⚠ Using cached price — tap refresh to retry</div>
+  <div id="err-banner" class="error-banner" style="display:none">⚠ Price unavailable — showing last known price</div>
 </div>
 </div>
-
-<!-- ═══════════ PURCHASES ═══════════ -->
+<!-- PURCHASES -->
 <div id="screen-purchases" class="screen">
 <div class="p16">
   <div class="row between mb20" style="padding-top:16px">
@@ -213,8 +176,7 @@ input,button,select{font-family:'DM Sans',sans-serif}
       <div style="font-size:24px;font-weight:600">Purchases</div>
     </div>
     <button class="btn-gold" onclick="openAddModal()" style="padding:10px 18px">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 4v16m8-8H4"/></svg>
-      Add
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 4v16m8-8H4"/></svg>Add
     </button>
   </div>
   <div id="p-summary" class="grid3 mb20" style="display:none">
@@ -239,15 +201,42 @@ input,button,select{font-family:'DM Sans',sans-serif}
   </div>
 </div>
 </div>
-
-<!-- ═══════════ SETTINGS ═══════════ -->
+<!-- CHARTS -->
+<div id="screen-charts" class="screen">
+<div class="p16">
+  <div style="padding-top:16px;margin-bottom:20px">
+    <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Analytics</div>
+    <div style="font-size:24px;font-weight:600">Charts</div>
+  </div>
+  <div class="sec">Portfolio Growth</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Cost basis vs Current Value over time</div>
+    <canvas id="chart-growth" height="200"></canvas>
+  </div>
+  <div class="sec">Cost vs Current Value</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Each bar — what you paid vs what it's worth now</div>
+    <canvas id="chart-bars" height="200"></canvas>
+  </div>
+  <div class="sec">Weight Accumulation</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Total gold accumulated over time (grams)</div>
+    <canvas id="chart-weight" height="200"></canvas>
+  </div>
+  <div class="sec">Profit & Loss per Bar</div>
+  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:20px">
+    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Unrealized P&L for each purchase (USD)</div>
+    <canvas id="chart-pl" height="200"></canvas>
+  </div>
+</div>
+</div>
+<!-- SETTINGS -->
 <div id="screen-settings" class="screen">
 <div class="p16">
   <div style="padding-top:16px;margin-bottom:24px">
     <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Configuration</div>
     <div style="font-size:24px;font-weight:600">Settings</div>
   </div>
-
   <div class="sec">Exchange Rate</div>
   <div style="background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:16px;margin-bottom:20px">
     <div class="field-label mb8">Current USD / IQD Rate</div>
@@ -255,9 +244,8 @@ input,button,select{font-family:'DM Sans',sans-serif}
       <input class="field mono" type="number" id="rate-input" style="flex:1;font-size:18px"/>
       <button class="btn-gold" onclick="applyRate()" style="padding:0 20px;height:46px">Apply</button>
     </div>
-    <div style="font-size:12px;color:#4A6580">Update when the market rate changes. Affects all IQD calculations.</div>
+    <div style="font-size:12px;color:#4A6580">Update when the market rate changes.</div>
   </div>
-
   <div class="sec">Database</div>
   <div style="background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:16px;margin-bottom:20px">
     <div class="row between">
@@ -270,56 +258,14 @@ input,button,select{font-family:'DM Sans',sans-serif}
       </div>
     </div>
   </div>
-
   <div class="sec">About</div>
   <div style="background:#0D1520;border:1px solid #1A2535;border-radius:14px;padding:0 16px">
     <div id="about-rows"></div>
   </div>
 </div>
 </div>
-
-<!-- ═══════════ CHARTS ═══════════ -->
-<div id="screen-charts" class="screen">
-<div class="p16">
-  <div style="padding-top:16px;margin-bottom:20px">
-    <div style="font-size:11px;color:#4A6580;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Analytics</div>
-    <div style="font-size:24px;font-weight:600">Charts</div>
-  </div>
-
-  <!-- Chart 1: Portfolio Growth -->
-  <div class="sec">Portfolio Growth</div>
-  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
-    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Cost basis vs Current Value over time</div>
-    <canvas id="chart-growth" height="200"></canvas>
-  </div>
-
-  <!-- Chart 2: Cost vs Value per bar -->
-  <div class="sec">Cost vs Current Value</div>
-  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
-    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Each bar — what you paid vs what it's worth now</div>
-    <canvas id="chart-bars" height="200"></canvas>
-  </div>
-
-  <!-- Chart 3: Weight Accumulation -->
-  <div class="sec">Weight Accumulation</div>
-  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:16px">
-    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Total gold accumulated over time (grams)</div>
-    <canvas id="chart-weight" height="200"></canvas>
-  </div>
-
-  <!-- Chart 4: P&L per bar -->
-  <div class="sec">Profit & Loss per Bar</div>
-  <div style="background:#0D1520;border:1px solid #1A2535;border-radius:16px;padding:16px;margin-bottom:20px">
-    <div style="font-size:11px;color:#4A6580;margin-bottom:12px">Unrealized P&L for each purchase (USD)</div>
-    <canvas id="chart-pl" height="200"></canvas>
-  </div>
-
-</div>
-</div>
-
 </div><!-- /screens-wrapper -->
-
-<!-- BOTTOM NAV -->
+<!-- NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn active" onclick="goTab('dashboard',this)">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -338,7 +284,6 @@ input,button,select{font-family:'DM Sans',sans-serif}
     Settings<span class="nav-dot"></span>
   </button>
 </nav>
-
 <!-- ADD MODAL -->
 <div class="overlay" id="add-overlay" onclick="if(event.target===this)closeAddModal()">
   <div class="sheet">
@@ -362,14 +307,12 @@ input,button,select{font-family:'DM Sans',sans-serif}
         <div id="fs-gram" style="font-size:12px;color:#4A6580"></div>
       </div>
       <button class="btn-gold" onclick="addPurchase()" id="save-btn" style="padding:15px;font-size:15px;margin-top:4px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
-        Save Purchase
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>Save Purchase
       </button>
       <button class="btn-ghost" onclick="closeAddModal()" style="padding:13px">Cancel</button>
     </div>
   </div>
 </div>
-
 <!-- EDIT MODAL -->
 <div class="overlay" id="edit-overlay" onclick="if(event.target===this)closeEditModal()">
   <div class="sheet">
@@ -381,26 +324,24 @@ input,button,select{font-family:'DM Sans',sans-serif}
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;padding-top:8px">
-      <div><div class="field-label">Brand</div><input class="field" type="text" id="e-brand" placeholder="PAMP Suisse"/></div>
+      <div><div class="field-label">Brand</div><input class="field" type="text" id="e-brand"/></div>
       <div><div class="field-label">Date</div><input class="field" type="date" id="e-date"/></div>
-      <div><div class="field-label">Weight (grams)</div><input class="field mono" type="number" step="0.01" id="e-weight" placeholder="5" oninput="updateEditSummary()"/></div>
-      <div><div class="field-label">Price Paid (IQD)</div><input class="field mono" type="number" id="e-iqd" placeholder="1255000" oninput="updateEditSummary()"/></div>
-      <div><div class="field-label">USD / IQD Rate</div><input class="field mono" type="number" id="e-rate" placeholder="1550" oninput="updateEditSummary()"/></div>
-      <div><div class="field-label">Certificate No. <span style="color:#4A6580;font-weight:400">(optional)</span></div><input class="field" type="text" id="e-cert" placeholder="C842378"/></div>
+      <div><div class="field-label">Weight (grams)</div><input class="field mono" type="number" step="0.01" id="e-weight" oninput="updateEditSummary()"/></div>
+      <div><div class="field-label">Price Paid (IQD)</div><input class="field mono" type="number" id="e-iqd" oninput="updateEditSummary()"/></div>
+      <div><div class="field-label">USD / IQD Rate</div><input class="field mono" type="number" id="e-rate" oninput="updateEditSummary()"/></div>
+      <div><div class="field-label">Certificate No.</div><input class="field" type="text" id="e-cert"/></div>
       <div id="edit-summary" style="display:none;background:#141F2E;border-radius:12px;padding:12px 14px">
         <div style="font-size:10px;color:#4A6580;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">Summary</div>
         <div class="mono" id="es-total" style="font-size:14px;color:#F0B429;margin-bottom:4px"></div>
         <div id="es-gram" style="font-size:12px;color:#4A6580"></div>
       </div>
       <button class="btn-gold" onclick="saveEdit()" id="edit-save-btn" style="padding:15px;font-size:15px;margin-top:4px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
-        Save Changes
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>Save Changes
       </button>
       <button class="btn-ghost" onclick="closeEditModal()" style="padding:13px">Cancel</button>
     </div>
   </div>
 </div>
-
 <!-- DELETE MODAL -->
 <div class="overlay" id="del-overlay" onclick="if(event.target===this)closeDelModal()">
   <div class="sheet" style="padding:20px 20px 36px">
@@ -413,457 +354,205 @@ input,button,select{font-family:'DM Sans',sans-serif}
     </div>
   </div>
 </div>
-
-<!-- TOAST -->
 <div id="toast" style="position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111C2A;border:1px solid #223045;border-radius:12px;padding:10px 18px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;pointer-events:none;z-index:9999;white-space:nowrap"></div>
-
-<!-- Chart.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
-<!-- ═══════════ FIREBASE SDK ═══════════ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, query, orderBy, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// ── FIREBASE CONFIG ──────────────────────────────
+import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const firebaseConfig = {
-  apiKey: "AIzaSyCpIoC1afts82d9EN-Q-aReAl6cAK2pmoM",
-  authDomain: "gold-tracker-5b848.firebaseapp.com",
-  projectId: "gold-tracker-5b848",
-  storageBucket: "gold-tracker-5b848.firebasestorage.app",
-  messagingSenderId: "819898043620",
-  appId: "1:819898043620:web:89d49c4d255ac4f5fd30f1",
-  measurementId: "G-YPWT18XPM6"
+  apiKey:"AIzaSyCpIoC1afts82d9EN-Q-aReAl6cAK2pmoM",
+  authDomain:"gold-tracker-5b848.firebaseapp.com",
+  projectId:"gold-tracker-5b848",
+  storageBucket:"gold-tracker-5b848.firebasestorage.app",
+  messagingSenderId:"819898043620",
+  appId:"1:819898043620:web:89d49c4d255ac4f5fd30f1"
 };
-
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-const COL = "gold_purchases";
-
-// ── STATE ────────────────────────────────────────
-let purchases     = [];
-let rate          = +(localStorage.getItem('gt_rate') || 1550);
-let spotOz        = null;
-let deleteTargetId = null;
-let editTargetId   = null;
-const OZ          = 31.1035;
-
-// ── HELPERS ──────────────────────────────────────
-const fmtN   = (n,d=2) => Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-const fmtUSD = n => n==null ? '—' : '$'+fmtN(n);
-const fmtIQD = n => n==null ? '—' : Math.round(n).toLocaleString('en-US')+' IQD';
-const daysSince = d => Math.max(0,Math.round((Date.now()-new Date(d))/86400000));
-
-function toast(msg, color='#00D4AA') {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.style.color = color;
-  t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
-  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; },2500);
-}
-
-function setText(id, val) { const el=document.getElementById(id); if(el) el.textContent=val; }
-
-// ── CHARTS ───────────────────────────────────────
-let chartInstances = {};
-
-const chartDefaults = {
-  font: { family: "'DM Sans', sans-serif" },
-  color: '#4A6580',
-};
-
-Chart.defaults.font.family = "'DM Sans', sans-serif";
-Chart.defaults.color = '#4A6580';
-
-function destroyChart(id) {
-  if(chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
-}
-
-function renderCharts() {
-  if(!purchases.length) return;
-  const spotG = spotOz ? spotOz / OZ : null;
-  const sorted = [...purchases].sort((a,b) => a.date.localeCompare(b.date));
-
-  // ── Chart 1: Portfolio Growth (Line) ──
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+const COL="gold_purchases";
+let purchases=[],rate=+(localStorage.getItem('gt_rate')||1550),spotOz=null,deleteTargetId=null,editTargetId=null;
+const OZ=31.1035;
+const fmtN=(n,d=2)=>Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtUSD=n=>n==null?'—':'$'+fmtN(n);
+const fmtIQD=n=>n==null?'—':Math.round(n).toLocaleString('en-US')+' IQD';
+const daysSince=d=>Math.max(0,Math.round((Date.now()-new Date(d))/86400000));
+function toast(msg,color='#00D4AA'){const t=document.getElementById('toast');t.textContent=msg;t.style.color=color;t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)';},2500);}
+function setText(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+// CHARTS
+let ci={};
+Chart.defaults.font.family="'DM Sans',sans-serif";
+Chart.defaults.color='#4A6580';
+function destroyChart(id){if(ci[id]){ci[id].destroy();delete ci[id];}}
+function renderCharts(){
+  if(!purchases.length)return;
+  const spotG=spotOz?spotOz/OZ:null;
+  const sorted=[...purchases].sort((a,b)=>a.date.localeCompare(b.date));
   destroyChart('growth');
-  const growthLabels = [];
-  const costData = [];
-  const valueData = [];
-  let cumCost = 0, cumWeight = 0;
-  sorted.forEach(p => {
-    cumCost   += p.priceIQD / p.rate;
-    cumWeight += p.weight;
-    growthLabels.push(p.date);
-    costData.push(+cumCost.toFixed(2));
-    valueData.push(spotG ? +(spotG * cumWeight).toFixed(2) : null);
-  });
-  // Add today's point
-  if(spotG && sorted.length) {
-    growthLabels.push('Today');
-    costData.push(costData[costData.length-1]);
-    valueData.push(+(spotG * cumWeight).toFixed(2));
-  }
-
-  const ctx1 = document.getElementById('chart-growth').getContext('2d');
-  chartInstances['growth'] = new Chart(ctx1, {
-    type: 'line',
-    data: {
-      labels: growthLabels,
-      datasets: [
-        {
-          label: 'Cost Basis (USD)',
-          data: costData,
-          borderColor: '#F0B429',
-          backgroundColor: 'rgba(240,180,41,.08)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.4,
-          pointBackgroundColor: '#F0B429',
-          pointRadius: 4,
-        },
-        {
-          label: 'Current Value (USD)',
-          data: valueData,
-          borderColor: '#00D4AA',
-          backgroundColor: 'rgba(0,212,170,.08)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.4,
-          pointBackgroundColor: '#00D4AA',
-          pointRadius: 4,
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
-        tooltip: {
-          backgroundColor: '#0D1520',
-          borderColor: '#1A2535',
-          borderWidth: 1,
-          callbacks: { label: ctx => ' $' + ctx.parsed.y.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) }
-        }
-      },
-      scales: {
-        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, maxRotation: 0 } },
-        y: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, callback: v => '$'+v.toLocaleString() } }
-      }
-    }
-  });
-
-  // ── Chart 2: Cost vs Value per Bar (Grouped Bar) ──
+  let cumC=0,cumW=0,gL=[],cD=[],vD=[];
+  sorted.forEach(p=>{cumC+=p.priceIQD/p.rate;cumW+=p.weight;gL.push(p.date);cD.push(+cumC.toFixed(2));vD.push(spotG?+(spotG*cumW).toFixed(2):null);});
+  if(spotG&&sorted.length){gL.push('Today');cD.push(cD[cD.length-1]);vD.push(+(spotG*cumW).toFixed(2));}
+  ci['growth']=new Chart(document.getElementById('chart-growth').getContext('2d'),{type:'line',data:{labels:gL,datasets:[{label:'Cost Basis (USD)',data:cD,borderColor:'#F0B429',backgroundColor:'rgba(240,180,41,.08)',borderWidth:2,fill:true,tension:0.4,pointBackgroundColor:'#F0B429',pointRadius:4},{label:'Current Value (USD)',data:vD,borderColor:'#00D4AA',backgroundColor:'rgba(0,212,170,.08)',borderWidth:2,fill:true,tension:0.4,pointBackgroundColor:'#00D4AA',pointRadius:4}]},options:{responsive:true,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:'#4A6580',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#0D1520',borderColor:'#1A2535',borderWidth:1,callbacks:{label:ctx=>' $'+ctx.parsed.y.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}}},scales:{x:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10},maxRotation:0}},y:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10},callback:v=>'$'+v.toLocaleString()}}}}});
   destroyChart('bars');
-  const barLabels = sorted.map((p,i) => p.brand.replace('PAMP Suisse','PAMP').substring(0,10) + ' ' + p.weight+'g');
-  const barCost   = sorted.map(p => +(p.priceIQD / p.rate).toFixed(2));
-  const barValue  = sorted.map(p => spotG ? +(spotG * p.weight).toFixed(2) : 0);
-
-  const ctx2 = document.getElementById('chart-bars').getContext('2d');
-  chartInstances['bars'] = new Chart(ctx2, {
-    type: 'bar',
-    data: {
-      labels: barLabels,
-      datasets: [
-        { label: 'Cost (USD)', data: barCost, backgroundColor: 'rgba(240,180,41,.7)', borderColor: '#F0B429', borderWidth: 1, borderRadius: 6 },
-        { label: 'Value (USD)', data: barValue, backgroundColor: 'rgba(0,212,170,.7)', borderColor: '#00D4AA', borderWidth: 1, borderRadius: 6 }
-      ]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
-        tooltip: {
-          backgroundColor: '#0D1520', borderColor: '#1A2535', borderWidth: 1,
-          callbacks: { label: ctx => ' $' + ctx.parsed.y.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) }
-        }
-      },
-      scales: {
-        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 } } },
-        y: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, callback: v => '$'+v.toLocaleString() } }
-      }
-    }
-  });
-
-  // ── Chart 3: Weight Accumulation (Area Line) ──
+  const bL=sorted.map(p=>p.brand.replace('PAMP Suisse','PAMP').substring(0,10)+' '+p.weight+'g');
+  const bC=sorted.map(p=>+(p.priceIQD/p.rate).toFixed(2));
+  const bV=sorted.map(p=>spotG?+(spotG*p.weight).toFixed(2):0);
+  ci['bars']=new Chart(document.getElementById('chart-bars').getContext('2d'),{type:'bar',data:{labels:bL,datasets:[{label:'Cost (USD)',data:bC,backgroundColor:'rgba(240,180,41,.7)',borderColor:'#F0B429',borderWidth:1,borderRadius:6},{label:'Value (USD)',data:bV,backgroundColor:'rgba(0,212,170,.7)',borderColor:'#00D4AA',borderWidth:1,borderRadius:6}]},options:{responsive:true,plugins:{legend:{labels:{color:'#4A6580',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#0D1520',borderColor:'#1A2535',borderWidth:1,callbacks:{label:ctx=>' $'+ctx.parsed.y.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}}},scales:{x:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10}}},y:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10},callback:v=>'$'+v.toLocaleString()}}}}});
   destroyChart('weight');
-  const weightLabels = [];
-  const weightData = [];
-  let cumW = 0;
-  sorted.forEach(p => {
-    weightLabels.push(p.date);
-    cumW += p.weight;
-    weightData.push(+cumW.toFixed(2));
-  });
-
-  const ctx3 = document.getElementById('chart-weight').getContext('2d');
-  chartInstances['weight'] = new Chart(ctx3, {
-    type: 'line',
-    data: {
-      labels: weightLabels,
-      datasets: [{
-        label: 'Total Weight (g)',
-        data: weightData,
-        borderColor: '#3B9EFF',
-        backgroundColor: 'rgba(59,158,255,.12)',
-        borderWidth: 2.5,
-        fill: true,
-        tension: 0.3,
-        stepped: true,
-        pointBackgroundColor: '#3B9EFF',
-        pointRadius: 6,
-        pointHoverRadius: 8,
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
-        tooltip: {
-          backgroundColor: '#0D1520', borderColor: '#1A2535', borderWidth: 1,
-          callbacks: { label: ctx => ' ' + ctx.parsed.y.toFixed(2) + ' g' }
-        }
-      },
-      scales: {
-        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 } } },
-        y: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 }, callback: v => v + 'g' }, beginAtZero: true }
-      }
-    }
-  });
-
-  // ── Chart 4: P&L per Bar ──
+  let wL=[],wD=[],cumWw=0;
+  sorted.forEach(p=>{wL.push(p.date);cumWw+=p.weight;wD.push(+cumWw.toFixed(2));});
+  ci['weight']=new Chart(document.getElementById('chart-weight').getContext('2d'),{type:'line',data:{labels:wL,datasets:[{label:'Total Weight (g)',data:wD,borderColor:'#3B9EFF',backgroundColor:'rgba(59,158,255,.12)',borderWidth:2.5,fill:true,tension:0.3,stepped:true,pointBackgroundColor:'#3B9EFF',pointRadius:6,pointHoverRadius:8}]},options:{responsive:true,plugins:{legend:{labels:{color:'#4A6580',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#0D1520',borderColor:'#1A2535',borderWidth:1,callbacks:{label:ctx=>' '+ctx.parsed.y.toFixed(2)+' g'}}},scales:{x:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10}}},y:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10},callback:v=>v+'g'},beginAtZero:true}}}});
   destroyChart('pl');
-  const plLabels = sorted.map(p => p.brand.replace('PAMP Suisse','PAMP').substring(0,10) + ' ' + p.weight+'g');
-  const plData   = sorted.map(p => {
-    const cost = p.priceIQD / p.rate;
-    const val  = spotG ? spotG * p.weight : cost;
-    return +(val - cost).toFixed(2);
-  });
-  const plColors = plData.map(v => v >= 0 ? 'rgba(0,212,170,.75)' : 'rgba(255,77,77,.75)');
-  const plBorders = plData.map(v => v >= 0 ? '#00D4AA' : '#FF4D4D');
-
-  const ctx4 = document.getElementById('chart-pl').getContext('2d');
-  chartInstances['pl'] = new Chart(ctx4, {
-    type: 'bar',
-    data: {
-      labels: plLabels,
-      datasets: [{
-        label: 'P&L (USD)',
-        data: plData,
-        backgroundColor: plColors,
-        borderColor: plBorders,
-        borderWidth: 1,
-        borderRadius: 6,
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: '#4A6580', font: { size: 11 }, boxWidth: 12 } },
-        tooltip: {
-          backgroundColor: '#0D1520', borderColor: '#1A2535', borderWidth: 1,
-          callbacks: { label: ctx => (ctx.parsed.y >= 0 ? ' +$' : ' -$') + Math.abs(ctx.parsed.y).toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) }
-        }
-      },
-      scales: {
-        x: { grid: { color: '#1A2535' }, ticks: { color: '#4A6580', font: { size: 10 } } },
-        y: {
-          grid: { color: '#1A2535' },
-          ticks: { color: '#4A6580', font: { size: 10 }, callback: v => (v>=0?'+$':'-$')+Math.abs(v).toLocaleString() },
-        }
-      }
-    }
-  });
+  const plL=sorted.map(p=>p.brand.replace('PAMP Suisse','PAMP').substring(0,10)+' '+p.weight+'g');
+  const plD=sorted.map(p=>{const cost=p.priceIQD/p.rate;const val=spotG?spotG*p.weight:cost;return +(val-cost).toFixed(2);});
+  ci['pl']=new Chart(document.getElementById('chart-pl').getContext('2d'),{type:'bar',data:{labels:plL,datasets:[{label:'P&L (USD)',data:plD,backgroundColor:plD.map(v=>v>=0?'rgba(0,212,170,.75)':'rgba(255,77,77,.75)'),borderColor:plD.map(v=>v>=0?'#00D4AA':'#FF4D4D'),borderWidth:1,borderRadius:6}]},options:{responsive:true,plugins:{legend:{labels:{color:'#4A6580',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#0D1520',borderColor:'#1A2535',borderWidth:1,callbacks:{label:ctx=>(ctx.parsed.y>=0?' +$':' -$')+Math.abs(ctx.parsed.y).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}}},scales:{x:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10}}},y:{grid:{color:'#1A2535'},ticks:{color:'#4A6580',font:{size:10},callback:v=>(v>=0?'+$':'-$')+Math.abs(v).toLocaleString()}}}}});
 }
-
-// ── INIT ─────────────────────────────────────────
-async function init() {
-  document.getElementById('rate-input').value = rate;
-  document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
-  document.getElementById('f-rate').value = rate;
+// INIT
+async function init(){
+  document.getElementById('rate-input').value=rate;
+  document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('f-rate').value=rate;
   buildAbout();
-
-  // Real-time listener from Firestore
-  const q = query(collection(db, COL), orderBy("date", "desc"));
-  onSnapshot(q, (snapshot) => {
-    purchases = snapshot.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
-    document.getElementById('loading-screen').style.display = 'none';
-    renderDashboard();
-    renderPurchases();
-    setTimeout(renderCharts, 100);
-  }, (err) => {
+  const q=query(collection(db,COL),orderBy("date","desc"));
+  onSnapshot(q,(snapshot)=>{
+    purchases=snapshot.docs.map(d=>({firestoreId:d.id,...d.data()}));
+    document.getElementById('loading-screen').style.display='none';
+    renderDashboard();renderPurchases();setTimeout(renderCharts,100);
+  },(err)=>{
     console.error(err);
-    document.getElementById('loading-screen').style.display = 'none';
-    toast('Database connection error', '#FF4D4D');
-    document.getElementById('db-status').innerHTML = '<span style="color:#FF4D4D">● Disconnected</span>';
+    document.getElementById('loading-screen').style.display='none';
+    toast('Database error','#FF4D4D');
+    document.getElementById('db-status').innerHTML='<span style="color:#FF4D4D">● Disconnected</span>';
   });
-
   fetchPrice();
 }
-
-// ── LIVE PRICE ───────────────────────────────────
-window.fetchPrice = async function() {
-  const icon = document.getElementById('refresh-icon');
-  icon.style.animation = 'spin 1s linear infinite';
-
-  // API 1: Yahoo Finance via corsproxy (Gold Futures GC=F)
-  try {
-    const r = await fetch('https://corsproxy.io/?https://query1.finance.yahoo.com/v8/finance/chart/GC=F', {signal: AbortSignal.timeout(8000)});
-    if(!r.ok) throw 0;
-    const d = await r.json();
-    const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
-    if(price && price > 100) { setPrice(price, false); icon.style.animation=''; return; }
-  } catch {}
-
-  // API 2: Yahoo Finance alternative endpoint
-  try {
-    const r = await fetch('https://corsproxy.io/?https://query2.finance.yahoo.com/v8/finance/chart/GC=F', {signal: AbortSignal.timeout(8000)});
-    if(!r.ok) throw 0;
-    const d = await r.json();
-    const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
-    if(price && price > 100) { setPrice(price, false); icon.style.animation=''; return; }
-  } catch {}
-
+// LIVE PRICE - Multiple APIs with fallback
+window.fetchPrice=async function(){
+  const icon=document.getElementById('refresh-icon');
+  icon.style.animation='spin 1s linear infinite';
+  // API 1: Yahoo Finance via corsproxy
+  try{
+    const r=await fetch('https://corsproxy.io/?url=https://query1.finance.yahoo.com/v8/finance/chart/GC%3DF',{signal:AbortSignal.timeout(8000)});
+    if(!r.ok)throw 0;
+    const d=await r.json();
+    const price=d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+    if(price&&price>100){setPrice(price,false);icon.style.animation='';return;}
+  }catch{}
+  // API 2: Yahoo Finance alternative URL format
+  try{
+    const r=await fetch('https://corsproxy.io/?https://query1.finance.yahoo.com/v8/finance/chart/GC%3DF',{signal:AbortSignal.timeout(8000)});
+    if(!r.ok)throw 0;
+    const d=await r.json();
+    const price=d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+    if(price&&price>100){setPrice(price,false);icon.style.animation='';return;}
+  }catch{}
   // API 3: gold-api.com
-  try {
-    const r = await fetch('https://api.gold-api.com/price/XAU', {headers:{'x-access-token':'goldapi-public'}, signal: AbortSignal.timeout(6000)});
-    if(!r.ok) throw 0;
-    const d = await r.json();
-    if(d.price > 100) { setPrice(d.price, false); icon.style.animation=''; return; }
-  } catch {}
-
+  try{
+    const r=await fetch('https://api.gold-api.com/price/XAU',{headers:{'x-access-token':'goldapi-public'},signal:AbortSignal.timeout(6000)});
+    if(!r.ok)throw 0;
+    const d=await r.json();
+    if(d.price&&d.price>100){setPrice(d.price,false);icon.style.animation='';return;}
+  }catch{}
   // API 4: goldprice.org
-  try {
-    const r = await fetch('https://data-asg.goldprice.org/dbXRates/USD', {signal: AbortSignal.timeout(6000)});
-    const d = await r.json();
-    if(d.items?.[0]) { setPrice(d.items[0].xauPrice * OZ, false); icon.style.animation=''; return; }
-  } catch {}
-
-  // All failed — keep last known price
-  setPrice(spotOz || 4761, true);
-  icon.style.animation = '';
+  try{
+    const r=await fetch('https://data-asg.goldprice.org/dbXRates/USD',{signal:AbortSignal.timeout(6000)});
+    const d=await r.json();
+    if(d.items?.[0]){setPrice(d.items[0].xauPrice*OZ,false);icon.style.animation='';return;}
+  }catch{}
+  setPrice(spotOz||4761,true);
+  icon.style.animation='';
 };
-
-function setPrice(oz, err) {
-  spotOz = oz;
-  const g = oz/OZ, iqd = g*rate, now = new Date();
-  setText('px-oz', fmtUSD(oz));
-  setText('px-g', fmtUSD(g));
-  setText('px-iqd', Math.round(iqd).toLocaleString('en-US'));
-  setText('price-time', now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}));
-  document.getElementById('err-banner').style.display = err?'block':'none';
+function setPrice(oz,err){
+  spotOz=oz;
+  const g=oz/OZ,iqd=g*rate,now=new Date();
+  setText('px-oz',fmtUSD(oz));setText('px-g',fmtUSD(g));
+  setText('px-iqd',Math.round(iqd).toLocaleString('en-US'));
+  setText('price-time',now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}));
+  document.getElementById('err-banner').style.display=err?'block':'none';
   renderDashboard();
 }
-
-// ── DASHBOARD ────────────────────────────────────
-function renderDashboard() {
-  const totalW   = purchases.reduce((s,p)=>s+p.weight,0);
-  const totalIQD = purchases.reduce((s,p)=>s+p.priceIQD,0);
-  const totalUSD = purchases.reduce((s,p)=>s+p.priceIQD/p.rate,0);
-  const spotG    = spotOz ? spotOz/OZ : null;
-  const curUSD   = spotG ? spotG*totalW : null;
-  const curIQD   = curUSD ? curUSD*rate : null;
-  const plUSD    = curUSD!=null ? curUSD-totalUSD : null;
-  const plPct    = plUSD!=null&&totalUSD>0 ? (plUSD/totalUSD)*100 : null;
-  const avgUSD   = totalW>0 ? totalUSD/totalW : null;
-  const avgIQD   = totalW>0 ? totalIQD/totalW : null;
-  const pfgUSD   = spotG&&avgUSD ? spotG-avgUSD : null;
-  const pfgIQD   = pfgUSD!=null ? pfgUSD*rate : null;
-  const firstD   = purchases.length ? [...purchases].sort((a,b)=>a.date.localeCompare(b.date))[0].date : null;
-  const dur      = firstD ? daysSince(firstD) : 0;
-  const ann      = dur>30&&curUSD&&totalUSD ? (Math.pow(curUSD/totalUSD,365/dur)-1)*100 : null;
-  const sva      = spotG&&avgUSD ? spotG-avgUSD : null;
-  const isP      = plUSD!=null&&plUSD>=0;
-
-  setText('hdr-weight', fmtN(totalW,2)+' g');
-  setText('hero-usd', curUSD?fmtUSD(curUSD):fmtUSD(totalUSD));
-  setText('hero-iqd', curIQD?fmtIQD(curIQD):fmtIQD(totalIQD));
-
-  if(plUSD!=null&&spotG) {
+function renderDashboard(){
+  const totalW=purchases.reduce((s,p)=>s+p.weight,0);
+  const totalIQD=purchases.reduce((s,p)=>s+p.priceIQD,0);
+  const totalUSD=purchases.reduce((s,p)=>s+p.priceIQD/p.rate,0);
+  const spotG=spotOz?spotOz/OZ:null;
+  const curUSD=spotG?spotG*totalW:null;
+  const curIQD=curUSD?curUSD*rate:null;
+  const plUSD=curUSD!=null?curUSD-totalUSD:null;
+  const plPct=plUSD!=null&&totalUSD>0?(plUSD/totalUSD)*100:null;
+  const avgUSD=totalW>0?totalUSD/totalW:null;
+  const avgIQD=totalW>0?totalIQD/totalW:null;
+  const pfgUSD=spotG&&avgUSD?spotG-avgUSD:null;
+  const pfgIQD=pfgUSD!=null?pfgUSD*rate:null;
+  const firstD=purchases.length?[...purchases].sort((a,b)=>a.date.localeCompare(b.date))[0].date:null;
+  const dur=firstD?daysSince(firstD):0;
+  const ann=dur>30&&curUSD&&totalUSD?(Math.pow(curUSD/totalUSD,365/dur)-1)*100:null;
+  const sva=spotG&&avgUSD?spotG-avgUSD:null;
+  const isP=plUSD!=null&&plUSD>=0;
+  setText('hdr-weight',fmtN(totalW,2)+' g');
+  setText('hero-usd',curUSD?fmtUSD(curUSD):fmtUSD(totalUSD));
+  setText('hero-iqd',curIQD?fmtIQD(curIQD):fmtIQD(totalIQD));
+  if(plUSD!=null&&spotG){
     const b=document.getElementById('hero-pl-badge');
     b.textContent=(isP?'▲ +':'▼ ')+fmtUSD(Math.abs(plUSD))+' ('+Math.abs(plPct).toFixed(2)+'%)';
-    b.style.background=isP?'#002E25':'#2D0A0A';
-    b.style.color=isP?'#00D4AA':'#FF4D4D';
+    b.style.background=isP?'#002E25':'#2D0A0A';b.style.color=isP?'#00D4AA':'#FF4D4D';
     b.style.border='1px solid '+(isP?'rgba(0,212,170,.25)':'rgba(255,77,77,.25)');
     document.getElementById('hero-pl').style.display='block';
   }
-
-  setText('k-total-usd', fmtUSD(totalUSD));
-  setText('k-total-iqd', fmtIQD(totalIQD));
-  setText('k-weight', fmtN(totalW,2)+' g');
-  setText('k-count', purchases.length);
-
-  const liveColor = (val, pos) => pos ? '#00D4AA' : '#FF4D4D';
-  if(spotG) {
-    const vc=curUSD!=null; const pc=plUSD!=null;
-    if(vc){ setText('k-val-usd',fmtUSD(curUSD)); setText('k-val-iqd',fmtIQD(curIQD)); }
-    if(pc){
-      const pColor=isP?'#00D4AA':'#FF4D4D';
-      const plEl=document.getElementById('k-pl-usd'); plEl.textContent=(isP?'+':'')+fmtUSD(plUSD); plEl.style.color=pColor;
-      const ppEl=document.getElementById('k-pl-pct'); ppEl.textContent=(isP?'+':'')+plPct.toFixed(2)+'%'; ppEl.style.color=pColor;
-      document.getElementById('kpi-pl-usd-card').style.borderLeftColor=pColor;
-      document.getElementById('kpi-pl-pct-card').style.borderLeftColor=pColor;
+  setText('k-total-usd',fmtUSD(totalUSD));setText('k-total-iqd',fmtIQD(totalIQD));
+  setText('k-weight',fmtN(totalW,2)+' g');setText('k-count',purchases.length);
+  if(spotG){
+    if(curUSD!=null){setText('k-val-usd',fmtUSD(curUSD));setText('k-val-iqd',fmtIQD(curIQD));}
+    if(plUSD!=null){
+      const pC=isP?'#00D4AA':'#FF4D4D';
+      const plEl=document.getElementById('k-pl-usd');plEl.textContent=(isP?'+':'')+fmtUSD(plUSD);plEl.style.color=pC;
+      const ppEl=document.getElementById('k-pl-pct');ppEl.textContent=(isP?'+':'')+plPct.toFixed(2)+'%';ppEl.style.color=pC;
+      document.getElementById('kpi-pl-usd-card').style.borderLeftColor=pC;
+      document.getElementById('kpi-pl-pct-card').style.borderLeftColor=pC;
     }
     if(pfgUSD!=null){
       const pfC=pfgUSD>=0?'#00D4AA':'#FF4D4D';
-      const pfuEl=document.getElementById('k-pfg-usd'); pfuEl.textContent=(pfgUSD>=0?'+':'')+fmtUSD(pfgUSD); pfuEl.style.color=pfC;
-      const pfiEl=document.getElementById('k-pfg-iqd'); pfiEl.textContent=(pfgIQD>=0?'+':'')+fmtIQD(pfgIQD); pfiEl.style.color=pfC;
+      const pfuEl=document.getElementById('k-pfg-usd');pfuEl.textContent=(pfgUSD>=0?'+':'')+fmtUSD(pfgUSD);pfuEl.style.color=pfC;
+      const pfiEl=document.getElementById('k-pfg-iqd');pfiEl.textContent=(pfgIQD>=0?'+':'')+fmtIQD(pfgIQD);pfiEl.style.color=pfC;
       document.getElementById('kpi-pfg-usd-card').style.borderLeftColor=pfC;
       document.getElementById('kpi-pfg-iqd-card').style.borderLeftColor=pfC;
     }
   }
-
-  setText('k-avg-usd', avgUSD?fmtUSD(avgUSD):'—');
-  setText('k-avg-iqd', avgIQD?fmtIQD(avgIQD):'—');
-  setText('k-days', dur+' days');
-  setText('k-breakeven', avgUSD?fmtUSD(avgUSD):'—');
-
+  setText('k-avg-usd',avgUSD?fmtUSD(avgUSD):'—');setText('k-avg-iqd',avgIQD?fmtIQD(avgIQD):'—');
+  setText('k-days',dur+' days');setText('k-breakeven',avgUSD?fmtUSD(avgUSD):'—');
   const annEl=document.getElementById('k-ann');
-  if(ann!=null){ annEl.textContent=(ann>=0?'+':'')+ann.toFixed(2)+'%'; annEl.style.color=ann>=0?'#00D4AA':'#FF4D4D'; document.getElementById('kpi-ann-card').style.borderLeftColor=ann>=0?'#00D4AA':'#FF4D4D'; }
+  if(ann!=null){annEl.textContent=(ann>=0?'+':'')+ann.toFixed(2)+'%';annEl.style.color=ann>=0?'#00D4AA':'#FF4D4D';document.getElementById('kpi-ann-card').style.borderLeftColor=ann>=0?'#00D4AA':'#FF4D4D';}
   document.getElementById('k-ann-sub').textContent=dur<=30?'Need 30+ days':'';
-
   if(sva!=null&&spotG){
-    const svaEl=document.getElementById('k-sva'); svaEl.textContent=(sva>=0?'+':'')+fmtUSD(sva)+'/g'; svaEl.style.color=sva>=0?'#00D4AA':'#FF4D4D';
+    const svaEl=document.getElementById('k-sva');svaEl.textContent=(sva>=0?'+':'')+fmtUSD(sva)+'/g';svaEl.style.color=sva>=0?'#00D4AA':'#FF4D4D';
     document.getElementById('kpi-sva-card').style.borderLeftColor=sva>=0?'#00D4AA':'#FF4D4D';
   }
-
   if(plPct!=null&&spotG){
     document.getElementById('pl-progress').style.display='block';
-    const pctBar=document.getElementById('pl-pct-bar'); pctBar.textContent=(isP?'+':'')+plPct.toFixed(2)+'%'; pctBar.style.color=isP?'#00D4AA':'#FF4D4D';
-    const fill=document.getElementById('pl-bar-fill'); fill.style.width=Math.min(Math.abs(plPct),100)+'%'; fill.style.background=isP?'linear-gradient(90deg,#00D4AA,#00FFCC)':'linear-gradient(90deg,#FF4D4D,#FF8A8A)';
+    const pctBar=document.getElementById('pl-pct-bar');pctBar.textContent=(isP?'+':'')+plPct.toFixed(2)+'%';pctBar.style.color=isP?'#00D4AA':'#FF4D4D';
+    const fill=document.getElementById('pl-bar-fill');fill.style.width=Math.min(Math.abs(plPct),100)+'%';fill.style.background=isP?'linear-gradient(90deg,#00D4AA,#00FFCC)':'linear-gradient(90deg,#FF4D4D,#FF8A8A)';
     setText('pl-bar-cost','Cost: '+fmtUSD(totalUSD));
-    const cur=document.getElementById('pl-bar-cur'); cur.textContent=fmtUSD(curUSD); cur.style.color=isP?'#00D4AA':'#FF4D4D';
+    const cur=document.getElementById('pl-bar-cur');cur.textContent=fmtUSD(curUSD);cur.style.color=isP?'#00D4AA':'#FF4D4D';
   }
 }
-
-// ── PURCHASES LIST ───────────────────────────────
-function renderPurchases() {
+function renderPurchases(){
   const list=document.getElementById('purchases-list');
   const empty=document.getElementById('purchases-empty');
   const summary=document.getElementById('p-summary');
-  if(!purchases.length){ list.innerHTML=''; empty.style.display='block'; summary.style.display='none'; return; }
-  empty.style.display='none'; summary.style.display='grid';
+  if(!purchases.length){list.innerHTML='';empty.style.display='block';summary.style.display='none';return;}
+  empty.style.display='none';summary.style.display='grid';
   const totalW=purchases.reduce((s,p)=>s+p.weight,0);
   const totalU=purchases.reduce((s,p)=>s+p.priceIQD/p.rate,0);
-  setText('ps-count', purchases.length);
-  setText('ps-weight', fmtN(totalW,2)+'g');
-  setText('ps-avg', fmtUSD(totalU/purchases.length));
+  setText('ps-count',purchases.length);setText('ps-weight',fmtN(totalW,2)+'g');setText('ps-avg',fmtUSD(totalU/purchases.length));
   const spotG=spotOz?spotOz/OZ:null;
   list.innerHTML=purchases.map((p,i)=>{
-    const pu=p.priceIQD/p.rate, cv=spotG?spotG*p.weight:null, pl=cv?cv-pu:null;
-    const plp=pl&&pu?(pl/pu)*100:null, isp=pl!=null&&pl>=0, cpg=fmtUSD(pu/p.weight);
-    const barW=plp!=null?Math.min(Math.abs(plp),100):0, barC=isp?'#00D4AA':'#FF4D4D';
+    const pu=p.priceIQD/p.rate,cv=spotG?spotG*p.weight:null,pl=cv?cv-pu:null;
+    const plp=pl&&pu?(pl/pu)*100:null,isp=pl!=null&&pl>=0,cpg=fmtUSD(pu/p.weight);
+    const barW=plp!=null?Math.min(Math.abs(plp),100):0,barC=isp?'#00D4AA':'#FF4D4D';
     return `<div class="pcard mb12" style="animation-delay:${i*40}ms">
       <div class="row between mb12">
         <div>
-          <div class="row gap8 mb8">
-            <span style="font-size:18px">🏅</span>
-            <span style="font-size:14px;font-weight:600">${p.brand||'Gold Bar'}</span>
-            <span class="tag tag-gold" style="font-size:9px">${p.weight}g</span>
-          </div>
-          <div class="row gap8" style="flex-wrap:wrap">
-            <span style="font-size:11px;color:#4A6580">${p.date}</span>
-            ${p.cert?`<span class="tag tag-blue" style="font-size:9px">${p.cert}</span>`:''}
-          </div>
+          <div class="row gap8 mb8"><span style="font-size:18px">🏅</span><span style="font-size:14px;font-weight:600">${p.brand||'Gold Bar'}</span><span class="tag tag-gold" style="font-size:9px">${p.weight}g</span></div>
+          <div class="row gap8" style="flex-wrap:wrap"><span style="font-size:11px;color:#4A6580">${p.date}</span>${p.cert?`<span class="tag tag-blue" style="font-size:9px">${p.cert}</span>`:''}</div>
         </div>
         <div style="text-align:right">
           ${plp!=null?`<div class="mono" style="font-size:14px;font-weight:700;color:${barC}">${isp?'+':''}${plp.toFixed(1)}%</div>`:''}
@@ -877,148 +566,83 @@ function renderPurchases() {
       </div>
       ${plp!=null?`<div class="pbar"><div class="pbar-fill" style="width:${barW}%;background:${barC}"></div></div>`:''}
       <div style="display:flex;justify-content:flex-end;gap:4px;margin-top:10px">
-        <button onclick="openEditModal('${p.firestoreId}')"
-          style="background:none;border:none;cursor:pointer;color:#4A6580;padding:4px 8px;border-radius:8px;font-size:11px;display:flex;align-items:center;gap:4px;transition:color .2s"
-          onmouseover="this.style.color='#3B9EFF'" onmouseout="this.style.color='#4A6580'">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-          Edit
+        <button onclick="openEditModal('${p.firestoreId}')" style="background:none;border:none;cursor:pointer;color:#4A6580;padding:4px 8px;border-radius:8px;font-size:11px;display:flex;align-items:center;gap:4px;transition:color .2s" onmouseover="this.style.color='#3B9EFF'" onmouseout="this.style.color='#4A6580'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>Edit
         </button>
-        <button onclick="openDelModal('${p.firestoreId}')"
-          style="background:none;border:none;cursor:pointer;color:#4A6580;padding:4px 8px;border-radius:8px;font-size:11px;display:flex;align-items:center;gap:4px;transition:color .2s"
-          onmouseover="this.style.color='#FF4D4D'" onmouseout="this.style.color='#4A6580'">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-          Delete
+        <button onclick="openDelModal('${p.firestoreId}')" style="background:none;border:none;cursor:pointer;color:#4A6580;padding:4px 8px;border-radius:8px;font-size:11px;display:flex;align-items:center;gap:4px;transition:color .2s" onmouseover="this.style.color='#FF4D4D'" onmouseout="this.style.color='#4A6580'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>Delete
         </button>
       </div>
     </div>`;
   }).join('');
 }
-
-// ── ADD PURCHASE ─────────────────────────────────
-window.openAddModal = function() {
-  document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
-  document.getElementById('f-brand').value='PAMP Suisse';
-  document.getElementById('f-weight').value='';
-  document.getElementById('f-iqd').value='';
-  document.getElementById('f-rate').value=rate;
-  document.getElementById('f-cert').value='';
-  document.getElementById('form-summary').style.display='none';
-  document.getElementById('add-overlay').classList.add('open');
-};
-window.closeAddModal = function() { document.getElementById('add-overlay').classList.remove('open'); };
-
-window.updateSummary = function() {
-  const w=+document.getElementById('f-weight').value, iq=+document.getElementById('f-iqd').value, r=+document.getElementById('f-rate').value;
-  const s=document.getElementById('form-summary');
-  if(w&&iq&&r){ setText('fs-total',fmtUSD(iq/r)+' total'); setText('fs-gram',fmtUSD(iq/r/w)+' per gram'); s.style.display='block'; }
-  else s.style.display='none';
-};
-
-window.addPurchase = async function() {
+window.openAddModal=function(){document.getElementById('f-date').value=new Date().toISOString().slice(0,10);document.getElementById('f-brand').value='PAMP Suisse';document.getElementById('f-weight').value='';document.getElementById('f-iqd').value='';document.getElementById('f-rate').value=rate;document.getElementById('f-cert').value='';document.getElementById('form-summary').style.display='none';document.getElementById('add-overlay').classList.add('open');};
+window.closeAddModal=function(){document.getElementById('add-overlay').classList.remove('open');};
+window.updateSummary=function(){const w=+document.getElementById('f-weight').value,iq=+document.getElementById('f-iqd').value,r=+document.getElementById('f-rate').value;const s=document.getElementById('form-summary');if(w&&iq&&r){setText('fs-total',fmtUSD(iq/r)+' total');setText('fs-gram',fmtUSD(iq/r/w)+' per gram');s.style.display='block';}else s.style.display='none';};
+window.addPurchase=async function(){
   const brand=document.getElementById('f-brand').value.trim()||'Gold Bar';
   const date=document.getElementById('f-date').value;
   const weight=+document.getElementById('f-weight').value;
   const priceIQD=+document.getElementById('f-iqd').value;
   const r=+document.getElementById('f-rate').value;
   const cert=document.getElementById('f-cert').value.trim();
-  if(!date||!weight||!priceIQD||!r){ toast('Please fill all required fields','#FF4D4D'); return; }
-  const btn=document.getElementById('save-btn');
-  btn.textContent='Saving...'; btn.disabled=true;
-  try {
-    await addDoc(collection(db,COL),{ brand, date, weight, priceIQD, rate:r, cert, createdAt: new Date().toISOString() });
-    closeAddModal(); toast('Purchase saved to Firebase ✓');
-  } catch(e) { toast('Error saving: '+e.message,'#FF4D4D'); }
-  btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg> Save Purchase';
-  btn.disabled=false;
+  if(!date||!weight||!priceIQD||!r){toast('Please fill all required fields','#FF4D4D');return;}
+  const btn=document.getElementById('save-btn');btn.textContent='Saving...';btn.disabled=true;
+  try{await addDoc(collection(db,COL),{brand,date,weight,priceIQD,rate:r,cert,createdAt:new Date().toISOString()});closeAddModal();toast('Purchase saved ✓');}
+  catch(e){toast('Error: '+e.message,'#FF4D4D');}
+  btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg> Save Purchase';btn.disabled=false;
 };
-
-// ── EDIT PURCHASE ────────────────────────────────
-window.openEditModal = function(id) {
-  const p = purchases.find(x => x.firestoreId === id);
-  if(!p) return;
-  editTargetId = id;
-  document.getElementById('e-brand').value  = p.brand || '';
-  document.getElementById('e-date').value   = p.date  || '';
-  document.getElementById('e-weight').value = p.weight || '';
-  document.getElementById('e-iqd').value    = p.priceIQD || '';
-  document.getElementById('e-rate').value   = p.rate || rate;
-  document.getElementById('e-cert').value   = p.cert || '';
+window.openEditModal=function(id){
+  const p=purchases.find(x=>x.firestoreId===id);if(!p)return;
+  editTargetId=id;
+  document.getElementById('e-brand').value=p.brand||'';
+  document.getElementById('e-date').value=p.date||'';
+  document.getElementById('e-weight').value=p.weight||'';
+  document.getElementById('e-iqd').value=p.priceIQD||'';
+  document.getElementById('e-rate').value=p.rate||rate;
+  document.getElementById('e-cert').value=p.cert||'';
   updateEditSummary();
   document.getElementById('edit-overlay').classList.add('open');
 };
-
-window.closeEditModal = function() {
-  document.getElementById('edit-overlay').classList.remove('open');
-  editTargetId = null;
+window.closeEditModal=function(){document.getElementById('edit-overlay').classList.remove('open');editTargetId=null;};
+window.updateEditSummary=function(){const w=+document.getElementById('e-weight').value,iq=+document.getElementById('e-iqd').value,r=+document.getElementById('e-rate').value;const s=document.getElementById('edit-summary');if(w&&iq&&r){setText('es-total',fmtUSD(iq/r)+' total');setText('es-gram',fmtUSD(iq/r/w)+' per gram');s.style.display='block';}else s.style.display='none';};
+window.saveEdit=async function(){
+  if(!editTargetId)return;
+  const brand=document.getElementById('e-brand').value.trim()||'Gold Bar';
+  const date=document.getElementById('e-date').value;
+  const weight=+document.getElementById('e-weight').value;
+  const priceIQD=+document.getElementById('e-iqd').value;
+  const r=+document.getElementById('e-rate').value;
+  const cert=document.getElementById('e-cert').value.trim();
+  if(!date||!weight||!priceIQD||!r){toast('Please fill all required fields','#FF4D4D');return;}
+  const btn=document.getElementById('edit-save-btn');btn.textContent='Saving...';btn.disabled=true;
+  try{await updateDoc(doc(db,COL,editTargetId),{brand,date,weight,priceIQD,rate:r,cert});closeEditModal();toast('Purchase updated ✓');}
+  catch(e){toast('Error: '+e.message,'#FF4D4D');}
+  btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg> Save Changes';btn.disabled=false;
 };
-
-window.updateEditSummary = function() {
-  const w=+document.getElementById('e-weight').value, iq=+document.getElementById('e-iqd').value, r=+document.getElementById('e-rate').value;
-  const s=document.getElementById('edit-summary');
-  if(w&&iq&&r){ setText('es-total',fmtUSD(iq/r)+' total'); setText('es-gram',fmtUSD(iq/r/w)+' per gram'); s.style.display='block'; }
-  else s.style.display='none';
+window.openDelModal=function(id){deleteTargetId=id;document.getElementById('del-overlay').classList.add('open');};
+window.closeDelModal=function(){document.getElementById('del-overlay').classList.remove('open');deleteTargetId=null;};
+window.confirmDelete=async function(){
+  if(!deleteTargetId)return;
+  try{await deleteDoc(doc(db,COL,deleteTargetId));closeDelModal();toast('Purchase deleted','#FF4D4D');}
+  catch(e){toast('Error: '+e.message,'#FF4D4D');}
 };
-
-window.saveEdit = async function() {
-  if(!editTargetId) return;
-  const brand    = document.getElementById('e-brand').value.trim() || 'Gold Bar';
-  const date     = document.getElementById('e-date').value;
-  const weight   = +document.getElementById('e-weight').value;
-  const priceIQD = +document.getElementById('e-iqd').value;
-  const r        = +document.getElementById('e-rate').value;
-  const cert     = document.getElementById('e-cert').value.trim();
-  if(!date||!weight||!priceIQD||!r){ toast('Please fill all required fields','#FF4D4D'); return; }
-  const btn = document.getElementById('edit-save-btn');
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  try {
-    await updateDoc(doc(db, COL, editTargetId), { brand, date, weight, priceIQD, rate:r, cert });
-    closeEditModal();
-    toast('Purchase updated ✓');
-  } catch(e) { toast('Error: '+e.message,'#FF4D4D'); }
-  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg> Save Changes';
-  btn.disabled = false;
-};
-
-// ── DELETE ───────────────────────────────────────
-window.openDelModal = function(id) { deleteTargetId=id; document.getElementById('del-overlay').classList.add('open'); };
-window.closeDelModal = function() { document.getElementById('del-overlay').classList.remove('open'); deleteTargetId=null; };
-window.confirmDelete = async function() {
-  if(!deleteTargetId) return;
-  try {
-    await deleteDoc(doc(db,COL,deleteTargetId));
-    closeDelModal(); toast('Purchase deleted','#FF4D4D');
-  } catch(e) { toast('Error: '+e.message,'#FF4D4D'); }
-};
-
-// ── SETTINGS ─────────────────────────────────────
-window.applyRate = function() {
+window.applyRate=function(){
   const v=+document.getElementById('rate-input').value;
-  if(!v||v<100){ toast('Invalid rate','#FF4D4D'); return; }
-  rate=v; localStorage.setItem('gt_rate',v);
-  renderDashboard(); renderPurchases();
-  toast('Rate updated to '+v.toLocaleString()+' IQD');
+  if(!v||v<100){toast('Invalid rate','#FF4D4D');return;}
+  rate=v;localStorage.setItem('gt_rate',v);renderDashboard();renderPurchases();toast('Rate updated to '+v.toLocaleString()+' IQD');
 };
-
-// ── NAV ──────────────────────────────────────────
-window.goTab = function(id, btn) {
+window.goTab=function(id,btn){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
   btn.classList.add('active');
-  if(id === 'charts') setTimeout(renderCharts, 50);
+  if(id==='charts')setTimeout(renderCharts,50);
 };
-
-// ── ABOUT ────────────────────────────────────────
-function buildAbout() {
-  const rows=[['App','Gold Tracker'],['Version','1.0 MVP'],['Database','Firebase Firestore'],['Price Source','Gold-API'],['Currency','USD & IQD']];
-  document.getElementById('about-rows').innerHTML=rows.map(([k,v])=>`
-    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1A2535">
-      <span style="font-size:13px;color:#4A6580">${k}</span>
-      <span style="font-size:13px;font-weight:500">${v}</span>
-    </div>`).join('');
+function buildAbout(){
+  const rows=[['App','Gold Tracker'],['Version','1.0 MVP'],['Database','Firebase Firestore'],['Price Source','Yahoo Finance'],['Currency','USD & IQD']];
+  document.getElementById('about-rows').innerHTML=rows.map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1A2535"><span style="font-size:13px;color:#4A6580">${k}</span><span style="font-size:13px;font-weight:500">${v}</span></div>`).join('');
 }
-
-// ── START ────────────────────────────────────────
 init();
 </script>
 </body>
